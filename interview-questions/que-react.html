@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>JavaScript Concept</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.36.5/src-noconflict/snippets/python.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/ace-builds@1.36.5/css/ace.min.css" rel="stylesheet">
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+  }
+
+  .accordion-body{
+    padding: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="container-fluid p-1 bg-primary text-white text-center">
+  <h4>Essential Questions on React, TypeScript, HTTPS, Load Balancing, WebSockets & <br> Practical Use Cases with Examples</h4>
+</div>
+  
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        QUE 01: How do you optimize the performance of a React application?
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        
+  <ul>
+    <li>Use <code>React.memo</code> to prevent unnecessary re-renders.</li>
+    <li>Optimize rendering with <code>useCallback</code> and <code>useMemo</code>.</li>
+    <li>Implement lazy loading using React’s <code>React.lazy()</code> and <code>Suspense</code>.</li>
+    <li>Use virtualized lists (e.g., <code>react-window</code>, <code>react-virtualized</code>) for large datasets.</li>
+    <li>Optimize API calls with debouncing and throttling (e.g., using <code>lodash</code>).</li>
+    <li>Minimize state re-renders by lifting state up efficiently.</li>
+    <li>Use code splitting with Webpack's dynamic imports.</li>
+    <li>Optimize images and assets using CDN, image compression, and responsive images.</li>
+  </ul>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <p><b>JWT Token Authentication</b> <br>
+        QUE 02: How does JWT authentication work?</p>
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+    <ul>
+      <li>The client sends login credentials to the server.</li>
+      <li>The server validates credentials and generates a JWT token.</li>
+      <li>The token is sent to the client and stored in localStorage, sessionStorage, or HttpOnly cookies.</li>
+      <li>For each API request, the token is sent in the Authorization header (Bearer &lt;token&gt;).</li>
+      <li>The server verifies the token using a secret key and processes the request.</li>
+    </ul>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        QUE 03: Where should we store JWT tokens in a React app?
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <ul>
+          <li>Secure storage options: HttpOnly cookies (safer) or in-memory storage.</li>
+          <li>Less secure options: LocalStorage or SessionStorage (vulnerable to XSS attacks).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+        QUE 04: How do you refresh JWT tokens?
+      </button>
+    </h2>
+    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <ul>
+          <li>Use a refresh token stored in HttpOnly cookies.</li>
+          <li>When the JWT token expires, the client requests a new token using the refresh token.</li>
+          <li>The server validates the refresh token and issues a new access token.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFoura" aria-expanded="false" aria-controls="collapseFoura">
+        <p><b>Handling Multiple API Calls Efficiently</b> <br>QUE 05: How do you handle multiple API calls in React efficiently?</p>
+       
+      </button>
+    </h2>
+    <div id="collapseFoura" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+      <ul>
+        <li>Parallel execution: Use <code>Promise.all()</code> or <code>Promise.allSettled()</code> for simultaneous calls.
+        </li>
+        <li>Sequential execution: Use <code>async/await</code> in a loop or <code>forEach()</code>.</li>
+        <li>Caching API responses: Use React Query or Apollo Client for better caching and synchronization.</li>
+        <li>Debouncing and throttling: Control frequent API calls (e.g., user input).</li>
+      </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourb" aria-expanded="false" aria-controls="collapseFourb">
+        QUE 06: Example of handling multiple API calls with Promise.all() in React
+      </button>
+    </h2>
+    <div id="collapseFourb" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor1">
+useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const [users, posts] = await Promise.all([
+                fetch('/api/users').then(res => res.json()),
+                fetch('/api/posts').then(res => res.json())
+            ]);
+            console.log(users, posts);
+        } catch (error) {
+            console.error("Error fetching data", error);
+        }
+    };
+
+    fetchData();
+}, []);
+      </div>  
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive"> <p><b>Load Balancing in API and WebSockets</b> <br>QUE 07: What is load balancing and how do you implement it?</p>
+      </button>
+    </h2>
+     <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+    <ul>
+        <li>Load balancing distributes incoming network traffic across multiple servers to prevent overload.</li>
+        <li>It is implemented using reverse proxies like Nginx, HAProxy, or AWS Load Balancer.</li>
+        <li>Strategies: Round Robin, Least Connections, IP Hashing.</li>
+    </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+        QUE 08:  How do you load balance WebSockets?
+      </button>
+    </h2>
+    <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <ul>
+        <li>Use a sticky session (session affinity) to ensure that WebSocket connections go to the same server.</li>
+        <li>Implement WebSocket clustering using Redis Pub/Sub or Socket.io adapter.</li>
+        <li>Use Nginx load balancing with <code>proxy_pass</code> for WebSockets.</li>
+    </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight"> <p><b>WebSocket Error Handling</b> <br> QUE 9: How do you handle WebSocket errors and reconnections in React?</p>
+      </button>
+    </h2>
+    <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+
+         <ul>
+        <li>Detect errors using the WebSocket <code>onerror</code> event.</li>
+        <li>Reconnect with exponential backoff if the connection is lost.</li>
+        <li>Close connections properly when the component unmounts.</li>
+    </ul>
+
+
+      <p><b>Example:</b></p>  
+        <div id="editor2">
+ import { useEffect, useState } from "react";
+
+const useWebSocket = (url: string) => {
+  const [socket, setSocket] = useState<WebSocket | null>(null);
+
+  useEffect(() => {
+    let ws = new WebSocket(url);
+
+    ws.onopen = () => console.log("WebSocket connected");
+    ws.onerror = (error) => console.error("WebSocket error", error);
+    ws.onclose = (event) => {
+      console.warn("WebSocket closed, reconnecting...", event);
+      setTimeout(() => setSocket(new WebSocket(url)), 3000);
+    };
+
+    setSocket(ws);
+
+    return () => {
+      ws.close();
+    };
+  }, [url]);
+
+  return socket;
+};
+
+export default useWebSocket;       
+      </div>  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine"> <p><b>HTTPS and Security</b> <br>QUE 10:  How does HTTPS improve security?</p>
+      </button>
+    </h2>
+    <div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <ul>
+        <li>Encrypts data between the client and server using SSL/TLS.</li>
+        <li>Prevents MITM (Man-in-the-Middle) attacks.</li>
+        <li>Provides authentication and data integrity.</li>
+    </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+        QUE 11: How do you enforce HTTPS in a React application?
+      </button>
+    </h2>
+    <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+         <ul>
+        <li>Redirect HTTP to HTTPS using <code>.htaccess</code> or Nginx.</li>
+        <li>Use Content-Security-Policy (CSP) to block mixed content.</li>
+        <li>Use Secure and HttpOnly flags for cookies.</li>
+    </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- start section 10 -->
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+        <p><b>TypeScript in React</b> <br> QUE 12:  What are the benefits of using TypeScript in React?</p>       
+      </button>
+    </h2>
+    <div id="collapseEleven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <ul>
+        <li>Static typing reduces runtime errors.</li>
+        <li>Better code maintainability with interfaces and types.</li>
+        <li>Improved IntelliSense in IDEs.</li>
+    </ul> 
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+        QUE 13: How do you define props in a React component using TypeScript?
+      </button>
+    </h2>
+    <div id="collapseTwelve" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor3">
+ interface ButtonProps {
+  label: string;
+  onClick: () => void;
+}
+
+const Button: React.FC<ButtonProps> = ({ label, onClick }) => {
+  return &lt;button onClick={onClick}&gt;{label}&lt;/button&gt;;
+};     
+      </div> </div>    </div>  </div>
+  <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="content-item">
+    <h4>Performance Optimization in React</h4>
+    <p><strong>Scenario:</strong> Optimizing a Large E-commerce Website</p>
+    <h5>Problem:</h5>    
+    <p>An e-commerce website with 10,000+ products loads very slowly. The product listing page re-renders frequently, causing performance issues.</p>
+    <h4>Solution:</h4>
+    <ul>
+        <li><strong>React.memo:</strong> Used to prevent unnecessary re-renders of product cards.</li>
+        <li><strong>Virtualized Lists:</strong> Used react-window to display only visible items in the viewport.</li>
+        <li><strong>Lazy Loading & Code Splitting:</strong> Loaded product images and additional details only when needed.</li>
+        <li><strong>Optimized API Calls:</strong> Cached product data using React Query to avoid unnecessary fetches.</li>
+    </ul>
+    <h4>Code Example (Optimizing Product List Rendering)</h4>
+    <pre>
+<code>
+import React from "react";
+import { FixedSizeList } from "react-window";
+
+const ProductCard = React.memo(({ product }) => {
+  return &lt;div&gt;{product.name}&lt;/div&gt;;
+});
+
+const ProductList = ({ products }) => {
+  return (
+    &lt;FixedSizeList
+      height={500}
+      itemSize={50}
+      itemCount={products.length}
+      itemData={products}
+    &gt;
+      {({ index, style }) => (
+        &lt;div style={style}&gt;
+          &lt;ProductCard product={products[index]} /&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/FixedSizeList&gt;
+  );
+};
+</code></pre></div></div></div></div><hr>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">      
+      <div class="content-item">
+          <h4>JWT Token Authentication</h4>
+          <p><strong>Scenario:</strong> Implementing JWT Authentication in a Banking Application</p>
+          <h5>Problem:</h5>
+          <p>A banking app needs secure authentication where users must log in and access their account details.</p>
+          <h5>Solution:</h5>
+          <ul>
+              <li>User logs in → API returns an <strong>accessToken</strong> and <strong>refreshToken</strong>.</li>
+              <li>Token stored securely in <strong>HttpOnly cookies</strong> to prevent XSS attacks.</li>
+              <li>Refresh token mechanism to issue new tokens without requiring re-login.</li>
+          </ul>
+          <h5>Code Example (Secure Token Storage & Auto Refresh)</h5>
+          <pre>
+<code>
+// API call to refresh token
+const refreshAccessToken = async () => {
+  try {
+    const response = await fetch("/api/refresh-token", {
+      method: "POST",
+      credentials: "include", // HttpOnly cookie handling
+    });
+    const data = await response.json();
+    localStorage.setItem("accessToken", data.accessToken);
+  } catch (error) {
+    console.error("Token refresh failed:", error);
+  }
+};
+
+// Axios Interceptor for auto-refreshing expired token
+import axios from "axios";
+
+axios.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response.status === 401) {
+      await refreshAccessToken();
+      return axios(error.config); // Retry the failed request
+    }
+    return Promise.reject(error);
+  }
+);
+</code></pre></div></div></div></div><hr>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12"> 
+      <div class="content-item">
+          <h4>Handling Multiple API Calls</h4>
+          <p><strong>Scenario:</strong> Fetching User & Order Details Simultaneously</p>
+          <h5>Problem:</h5>
+          <p>A dashboard needs to display user profile details and order history at the same time. Making separate API calls slows down performance.</p>
+          <h5>Solution:</h5>
+          <p>Use <code>Promise.all()</code> to make parallel API requests.</p>
+          <h5>Code Example</h5>
+          <pre>
+<code>
+useEffect(() => {
+  async function fetchData() {
+    try {
+      const [userResponse, ordersResponse] = await Promise.all([
+        fetch("/api/user").then((res) => res.json()),
+        fetch("/api/orders").then((res) => res.json()),
+      ]);
+      console.log("User Data:", userResponse);
+      console.log("Orders Data:", ordersResponse);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
+  fetchData();
+}, []);
+</code></pre></div> </div></div></div><hr>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">      
+      <div class="content-item">
+          <h4>Load Balancing</h4>
+          <p><strong>Scenario:</strong> Scaling a High-Traffic React App Using Load Balancing</p>
+          <h5>Problem:</h5>
+          <p>An online learning platform receives 100,000+ requests per second. A single server can't handle this traffic.</p>
+          <h5>Solution:</h5>
+          <ul>
+              <li><strong>Nginx Load Balancer:</strong> Distributes traffic among multiple servers.</li>
+              <li><strong>Round Robin Strategy:</strong> Ensures equal distribution.</li>
+              <li><strong>Sticky Sessions:</strong> For session persistence.</li>
+          </ul>
+          <h5>Nginx Configuration Example</h5>
+          <pre>
+<code>
+upstream backend_servers {
+    server server1.example.com;
+    server server2.example.com;
+}
+
+server {
+    listen 80;
+    location / {
+        proxy_pass http://backend_servers;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+</code> </pre> </div> </div></div></div><hr>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">      
+      <div class="content-item">
+          <h4>WebSocket Error Handling</h4>
+          <p><strong>Scenario:</strong> Real-Time Stock Market Data with WebSockets</p>
+          <h5>Problem:</h5>
+          <p>A financial app streams live stock prices. If the WebSocket connection drops, the app should automatically reconnect.</p>
+          <h5>Solution:</h5>
+          <ul>
+              <li><strong>Detect connection failure</strong> using <code>onclose</code>.</li>
+              <li><strong>Reconnect WebSocket</strong> with exponential backoff.</li>
+          </ul>
+          <h5>Code Example (WebSocket Auto-Reconnect)</h5>
+          <pre>
+<code>
+import { useEffect, useState } from "react";
+
+const useWebSocket = (url) => {
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    let reconnectAttempts = 0;
+
+    function connect() {
+      let ws = new WebSocket(url);
+
+      ws.onopen = () => {
+        console.log("Connected");
+        reconnectAttempts = 0;
+      };
+
+      ws.onerror = (error) => console.error("WebSocket error", error);
+
+      ws.onclose = () => {
+        reconnectAttempts++;
+        setTimeout(connect, Math.min(1000 * 2 ** reconnectAttempts, 30000)); // Exponential Backoff
+      };
+
+      setSocket(ws);
+    }
+
+    connect();
+
+    return () => socket?.close();
+  }, [url]);
+
+  return socket;
+};
+</code></pre></div></div></div></div><hr>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="content-item">
+          <h4>HTTPS Security</h4>
+          <p><strong>Scenario:</strong> Enforcing HTTPS in a React Application</p>
+          <h5>Problem:</h5>
+          <p>A React app is deployed, but users can access it over HTTP, making it vulnerable to attacks.</p>
+          <h5>Solution:</h5>
+          <ul>
+              <li><strong>Force HTTPS</strong> using Nginx.</li>
+              <li><strong>Redirect HTTP to HTTPS</strong> using <code>.htaccess</code>.</li>
+              <li><strong>Use Content Security Policy (CSP)</strong> to block mixed content.</li>
+          </ul>
+          <h5>Nginx Example</h5>
+          <pre>
+<code>
+server {
+    listen 80;
+    return 301 https://$host$request_uri;
+}
+</code></pre></div></div></div></div><hr>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="content-item">
+          <h4>TypeScript in React</h4>
+          <p><strong>Scenario:</strong> Creating a Type-Safe API Response</p>
+          <h5>Problem:</h5>
+          <p>A React app fetches user details, but there is no strict type-checking, causing runtime errors.</p>
+          <h5>Solution:</h5>
+          <p>Define a TypeScript interface for API responses.</p>
+          <h5>Code Example</h5>
+          <pre>
+<code>
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const fetchUserData = async (): Promise<User> => {
+  const response = await fetch("/api/user");
+  return response.json();
+};
+
+const UserProfile = () => {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    fetchUserData().then(setUser);
+  }, []);
+
+  return user ? &lt;div&gt;{user.name}&lt;/div&gt; : &lt;div&gt;Loading...&lt;/div&gt;;
+};
+</code></pre></div></div></div></div><!-- end section 10 --></div>
+
+<div class="container-fluid " style="background-color: #edf2f9;">
+  <footer class="py-3">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Back To Top</a></li>
+    </ul>
+    <p class="text-center text-muted">© 2024 Aniruddha Kadia</p>
+  </footer>
+</div>
+<script src="./ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="./custom-acecode.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
