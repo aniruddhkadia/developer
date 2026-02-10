@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>JavaScript Concept</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.36.5/src-noconflict/snippets/python.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/ace-builds@1.36.5/css/ace.min.css" rel="stylesheet">
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+  }
+
+  .accordion-body{
+    padding: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="container-fluid p-1 bg-primary text-white text-center">
+  <h3>JavaScript Concept</h3>
+</div>
+  
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        QUE 01: Balanced Brackets in An Expression or Valid Parentheses Challenge
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        
+        <div id="editor1">
+function isValid(str) {
+  let result = [];
+  //  start method 1
+  let bracketMap = {
+    ')': '(',
+    '}': '{',
+    ']': '['
+  };
+  for (i = 0; i < str.length; i++) {
+    let char = str.charAt(i);
+    if (char === '(' || char === '{' || char === '[') {
+      result.push(char);
+    } else {
+      if (result.length === 0) {
+        return false;
+      }
+      let top = result.pop();
+      if (bracketMap[char] !== top) {
+        return false;
+      }
+    }
+  }
+  //  end method 1
+  //  start method 2
+  // let bracketMap = {
+  //   '(' : ')',
+  //   '{' : '}',
+  //   '[' : ']'
+  // }
+  // for (let char of str){
+  //   if(bracketMap[char]){
+  //      result.push(bracketMap[char])
+  //      } else {
+  //        if(result.pop() !== char){
+  //        return false
+  //        }
+  //      }
+  //  }
+  //  end method 2
+  return result.length === 0;
+}
+// Test cases and Answer
+console.log(isValid("()")); // true
+console.log(isValid("()[]{}")); // true
+console.log(isValid("(]")); // false
+console.log(isValid("([)]")); // false
+console.log(isValid("{[]}")); // true
+console.log(isValid("")); // true (empty string is considered valid)
+console.log(isValid("{[()]}")); // true
+console.log(isValid("{[(])}")); // false
+console.log(isValid("{[(")); // false (unfinished brackets)
+console.log(isValid("{[()]}{")); // false (extra opening bracket at the end)           
+</div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        QUE 02: Converting array in one array & Custom flat 
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+	 <div id="editor2">
+let dataMixArr = [1, 2, [3, 4, [5, 6, 7, [8, 9, 10, ], 11, ], 12], ];
+let flatArr = dataMixArr.flat(Infinity);
+console.log(flatArr); //   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+function customFlat(dataMixArr, depth = 1) {
+  let result = [];
+  dataMixArr.forEach((ar) => {
+    if (Array.isArray(ar) && depth > 0) {
+      result.push(...customFlat(ar, depth - 1));
+    } else {
+      result.push(ar);
+    }
+  });
+  return result;
+}
+console.log(customFlat(dataMixArr, 2)); //    [1, 2, 3, 4, 5, 6, 7, [8, 9, 10], 11, 12]
+console.log(customFlat(dataMixArr, 3)); //    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        QUE 03: MAP, FOR, FILTER, REDUCE <br>
+        1. map and for method [1, 2, "*", "*", "*"], ["*", "**", "***", "****", "*****"], [1, 4, 9, 16, 25] <br>
+        2. Even, Odd, Max, Min and total sum of array. <br>
+        3. targeted sum and their pairs of array. <br>
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor3">
+let arrayData = [1, 2, 3, 4, 5];
+// MAP METHOD
+let starAllMap = arrayData.map(item => '*');
+console.log(starAllMap); // Output:  ["*", "*", "*", "*", "*"]
+let starRepeatMap = arrayData.map(item => '*'.repeat(item));
+console.log(starRepeatMap); // Output: ["*", "**", "***", "****", "*****"]
+let starConditionMap = arrayData.map(ele => ele > 2 ? '*' : ele);
+console.log(starConditionMap); // Output: [1, 2, "*", "*", "*"]
+let starConMapRepeat = arrayData.map(item => item > 3 ? '*'.repeat(item) : item);
+console.log(starConMapRepeat); // Output: [1, 2, 3, "****", "*****"]
+let squaresMap = arrayData.map(num => num * num);
+console.log(squaresMap); // Output: [1, 4, 9, 16, 25]
+// FOR METHOD
+let starFor = [];
+starFor.push(arrayData[0], arrayData[1]);
+for (let i = 2; i < arrayData.length; i++) {
+  starFor.push('*');
+}
+console.log(starFor); // Output: [1, 2, "*", "*", "*"]
+let starRepeatFor = [];
+for (let i = 0; i < arrayData.length; i++) {
+  starRepeatFor.push('*'.repeat(arrayData[i]));
+}
+console.log(starRepeatFor); // Output: ["*", "**", "***", "****", "*****"]
+let squaresFor = [];
+for (let i = 0; i < arrayData.length; i++) {
+  squaresFor.push(arrayData[i] * arrayData[i]);
+}
+console.log(squaresFor); // Output: [1, 4, 9, 16, 25]
+// FILTER METHOD
+let evenFilter = arrayData.filter((item) => {
+  return item % 2 === 0;
+});
+console.log(evenFilter); // [2, 4]
+let oddFilter = arrayData.filter((item) => {
+  return item % 2 !== 0;
+});
+console.log(oddFilter); // [1, 3, 5]
+// REDUCE METHOD
+let maxReduceFun = (arr) => {
+  return arr.reduce((pre, cur) => {
+    return pre > cur ? pre : cur;
+  });
+};
+console.log(maxReduceFun(arrayData)); //5
+let minReduceFun = (arr) => {
+  return arr.reduce((pre, cur) => {
+    return pre < cur ? pre : cur;
+  });
+};
+console.log(minReduceFun(arrayData)); //1
+let sumReduceArr = (arr) => {
+  return arr.reduce((pre, cur) => {
+    return pre + cur;
+  });
+};
+console.log(sumReduceArr(arrayData)); // 15
+/*====================================================*/
+let targetSum = 7;
+
+function findPairs(arrayData, targetSum) {
+  let pairs = [];
+  let map = new Map();
+  for (let num of arrayData) {
+    let finalDiff = targetSum - num;
+    if (map.has(finalDiff)) {
+      pairs.push([finalDiff, num]);
+    }
+    map.set(num, true);
+  }
+  return pairs;
+}
+console.log(findPairs(arrayData, targetSum)); // Output: [[3, 4], [2, 5]]
+      </div>  
+      </div>
+    </div>
+  </div>
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+        QUE 04: sort array, find duplicate number, remove largest number then find second largest number,  <br>
+find the missing number from lowest value to highest value. 
+      </button>
+    </h2>
+    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor4">
+let dataNew = [1, 2, 8, 2, 9, 8];
+let newDataNow = [...new Set(dataNew)];
+console.log(newDataNow); //   [1, 2, 8, 9]
+let duplicates = dataNew.filter((ele, index, arr) => arr.indexOf(ele) !== index);
+console.log(duplicates); //   [2, 8]
+const largestValue = (arr) => {
+  firstLargestValue = Math.max(...arr);
+  index = arr.indexOf(firstLargestValue); //here we have find largest Number 9 
+  arr.splice(index, 1); // remove largest Number 9
+  secondLargestValue = Math.max(...arr);
+  return (secondLargestValue); // we have got second largest value 8
+};
+console.log(largestValue(dataNew)); // 8 //second largest number
+console.log(dataNew); // [1, 2, 8, 2, 8] // 9 number delete thai jase
+/*====================================================*/
+const missArray = [];
+const missingValue = (arr) => {
+  const minValue = Math.min(...arr);
+  const maxValue = Math.max(...arr);
+  for (let i = minValue; i < maxValue; i++) {
+    if (arr.indexOf(i) < 0) {
+      missArray.push(i);
+    }
+  }
+  return missArray;
+};
+console.log(missingValue(dataNew)); // [3, 4, 5, 6, 7]
+/*====================================================*/
+//How to separate number and string from mix Array.
+let data = [1, 2, "a", 4, "b", "c", "d", 3];
+let number = [];
+let string = [];
+data.forEach((item) => {
+  if (typeof(item) === "string") {
+    string.push(item);
+  } else {
+    number.push(item);
+  }
+});
+console.log(number); // [1, 2, 4, 3]
+console.log(string); // ["a", "b", "c", "d"]
+/*====================================================*/
+// Example of shallow copy and Deep Copy see the New.js file explain in detail way
+      </div>  
+      </div>
+    </div>
+  </div>
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFoura" aria-expanded="false" aria-controls="collapseFoura">
+        QUE 04 a: Balanced Brackets in An Expression or Valid Parentheses Challenge
+      </button>
+    </h2>
+    <div id="collapseFoura" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor4a">
+ /*====================================================
+// Que 1: Balanced Brackets in An Expression or Valid Parentheses Challenge
+====================================================*/
+ function isValid(str) {
+   let result = [];
+   let bracketMap = {
+     '(': ')',
+     '{': '}',
+     '[': ']'
+   };
+   for (let char of str) {
+     if (bracketMap[char]) {
+       result.push(bracketMap[char]);
+     } else {
+       if (result.pop() !== char) {
+         return false;
+       }
+     }
+   }
+   return result.length === 0;
+ }
+ // Test cases and Answer
+ console.log(isValid("()")); // true
+ console.log(isValid("()[]{}")); // true
+ console.log(isValid("(]")); // false
+ console.log(isValid("([)]")); // false
+ console.log(isValid("{[]}")); // true
+ console.log(isValid("")); // true (empty string is considered valid)
+ console.log(isValid("{[()]}")); // true
+ console.log(isValid("{[(])}")); // false
+ console.log(isValid("{[(")); // false (unfinished brackets)
+ console.log(isValid("{[()]}{")); // false (extra opening bracket at the end)
+ /*====================================================
+ // Que 2: 
+ ====================================================*/
+ // Shallow Copy Example:
+ // A shallow copy creates a new reference to the same object. 
+ // Changes to the copied object will affect the original if they refer to nested objects.
+ let original = {
+   name: 'Aniruddh',
+   details: {
+     age: 39,
+     city: 'Vadodara'
+   }
+ };
+ let shallowCopy = {
+   ...original
+ }; // Shallow copy using spread operator
+ // Modify shallow copy
+ shallowCopy.details.city = 'Ahmedabad';
+ // Both objects reflect the change
+ console.log(original.details.city); // Output: 'Ahmedabad'
+ console.log(shallowCopy.details.city); // Output: 'Ahmedabad'
+ /*====================================================*/
+ // Deep Copy Example:
+ // A deep copy creates a new object with all nested objects also copied, 
+ // ensuring changes in the copied object do not affect the original.
+ let originalTwo = {
+   name: 'Aniruddh',
+   details: {
+     age: 39,
+     city: 'Vadodara'
+   }
+ };
+ // Deep copy using JSON methods
+ let deepCopy = JSON.parse(JSON.stringify(originalTwo));
+ // Modify deep copy
+ deepCopy.details.city = 'Ahmedabad';
+ // Only deep copy reflects the change
+ console.log(originalTwo.details.city); // Output: 'Vadodara'
+ console.log(deepCopy.details.city); // Output: 'Ahmedabad'
+ // Explanation:
+ // Shallow Copy: The spread operator { ...original } creates a new object, but nested objects are still references to the original. 
+ // Hence, changing details.city in the shallow copy affects the original object.
+ // Deep Copy: JSON.parse(JSON.stringify(original)) creates a completely new object, 
+ // including nested objects, ensuring changes to the deep copy do not affect the original.
+ /*====================================================*/
+ // Certainly! Here are several methods to create a deep copy in JavaScript:
+ // 1. Using JSON Methods
+ // 2. Recursive Function
+ // 3. Using Lodash Library
+ // 4. Using StructuredClone (Modern JavaScript)
+ // 5. Using jQuery
+ // 6. Custom Utility Libraries
+ /*====================================================*/         
+      </div>  
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourb" aria-expanded="false" aria-controls="collapseFourb">
+        QUE 04 b: 1. find total word count in the string.  <br>
+        2. shorten string and add ... in last.  <br>
+        3. reverse the string with word.  <br>
+4. find total vowel in the string.  <br>
+ 5. remove the duplicate and sort the string.  <br>
+ 6. word is vowel or not.
+      </button>
+    </h2>
+    <div id="collapseFourb" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor4b">
+  const strData = "sun rises in the east";
+ const obj = {};
+ for (let index of strData) {
+   if (obj[index]) {
+     obj[index] += 1;
+   } else {
+     obj[index] = 1;
+   }
+ }
+ console.log(obj); // Output: { : 4, a: 1, e: 3, h: 1, i: 2, n: 2, r: 1, s: 4, t: 2, u: 1}
+ function countCharacters(str) {
+   let count = {};
+   for (let x of str) {
+     if (count[x]) {
+       count[x] += 1;
+     } else {
+       count[x] = 1;
+     }
+   }
+   return count;
+ }
+ const text = 'subscribe to procoder!!';
+ console.log(countCharacters(text)); // { : 2, !: 2, b: 2, c: 2, d: 1, e: 2, i: 1, o: 3, p: 1, r: 3, s: 2, t: 1, u: 1}
+ function nameShort(name, maxLength) {
+   if (name.length > maxLength) {
+     return name.substring(0, maxLength) + "...";
+   }
+   return name;
+ }
+ let newName = nameShort(strData, 9);
+ console.log(newName); // Output: "sun rises..."
+
+ // using function
+ function reverseWords(strData) {
+   return strData.split(' ').map(word => word.split('').reverse().join('')).join(' ');
+ }
+ let newData = reverseWords(strData);
+ console.log(newData); // Output: "nuS sesir ni eht tsae"
+
+ // using fat arrow function
+ let reverse = strData.split(' ').map(word => word.split('').reverse().join('')).join(' ');
+ console.log(reverse); // Output: "nuS sesir ni eht tsae"
+
+ const vowels = ["a", "e", "i", "o", "u"];
+ const countVowel = (str) => {
+   let count = 0;
+   for (let letter of str.toLowerCase()) {
+     if (vowels.includes(letter)) {
+       count++;
+     }
+   }
+   return count;
+ };
+ console.log(countVowel(strData)); // Output: 7
+ // sort data and remove duplicate
+ const sortData = [...new Set(strData.split(""))];
+ console.log(sortData); //Output: ["s", "u", "n", " ", "r", "i", "e", "t", "h", "a"]
+ /*====================================================*/
+ var string = "e";
+ string = string.toLocaleLowerCase();
+ if (string == "a" || string == "e" || string == "i" || string == "o" || string == "u") {
+   console.log(`${string} is vowel.`);
+ } else {
+   console.log(`${string} is not vowel.`); // Output: "e is vowel."
+ }        
+      </div>  
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+        QUE 05: find factorial (n!) of given number  <br>
+// factorial of  negative nubers are not possible.  <br>
+// factorial of 5 means 5! = 1 * 2 * 3 * 4 * 5 = 120  <br>
+      </button>
+    </h2>
+    <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor5">
+ const inputNum = 5;
+ fact = 1;
+ if (inputNum < 0) {
+   console.log(`factorial of ${inputNum} is not possible`);
+ } else {
+   for (let i = 1; i <= inputNum; i++) {
+     fact = fact * i;
+   }
+   console.log(`factorial of ${inputNum} is ${fact}`); // output: "factorial of 5 is 120"
+ }         
+      </div>  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+        QUE 06: both are true sum(1)(2) sum(1, 2); Currying Method
+      </button>
+    </h2>
+    <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor6">
+ function sum(a, b) {
+   if (b !== undefined) {
+     return a + b;
+   } else {
+     return function(b) {
+       return a + b;
+     };
+   }
+ }
+ console.log(sum(1, 2)); //3
+ console.log(sum(1)(2)); //3
+ //function curring or closure
+ function sum(a) {
+   return function(b) {
+     return function(c) {
+       return a + b + c;
+     };
+   };
+ }
+ console.log(sum(7)(5)(13));
+ //another way
+ function sum(...args) {
+   const innerSum = (...innerArgs) => {
+     const combinedArgs = args.concat(innerArgs);
+     if (innerArgs.length === 0) {
+       return combinedArgs.reduce((acc, curr) => acc + curr, 0);
+     }
+     return sum(...combinedArgs);
+   };
+   return innerSum;
+ }
+ console.log(sum(1, 2, 3)()); // 6
+ console.log(sum(1)(2)(3)()); // 6
+ console.log(sum(4)(5)()); // 9
+ console.log(sum(1)(2)(3)(4)()); // 10
+ /*====================================================*/
+ let count = 0;
+ const nums = [0, 1, 2, 3];
+ nums.forEach(num => {
+   if (num) {
+     count = count + 1;
+   }
+ });
+ console.log(count); //3
+ /*====================================================*/
+ const arr = [2, 3, 4, 5];
+ let newwe = arr.slice(0, 1);
+ console.log(arr); //[2, 3, 4, 5]
+ console.log(arr.slice(0, 1)); //[2]
+ console.log(newwe); //[2]
+ arr.splice(0, 1);
+ arr.unshift(8);
+ console.log(arr); //[8, 3, 4, 5]
+ /*====================================================*/
+ const obj = {
+   a: 1,
+   b: 2,
+   c: 3,
+   "a": 6,
+   b: 7
+ }
+ console.log(obj) // {a: 6, b: 7, c: 3}
+ /*====================================================*/
+ console.log(!"hello"); //false
+ console.log(+false); //0
+ console.log(-true); //-1
+ console.log(-false); //0
+ console.log(+true); //1
+ console.log("" == false); // true
+ console.log("" === false); //false
+ console.log(NaN == NaN); //false
+ console.log(NaN === NaN); //false
+ console.log(0 / 0); // NaN
+ console.log(1 + undefined); // NaN
+ console.log(typeof typeof 1000); // "string"
+ /*====================================================*/
+ const arradd = [3, 4, 5, 6, 7, 8];
+ arradd[10] = 100;
+ console.log(arradd); //[3, 4, 5, 6, 7, 8, undefined, undefined, undefined, undefined, 100]         
+      </div>  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+        QUE 07:  Write a function whch returns a function that generates fibonacci numbers.  <br>
+    Don't use generators.
+      </button>
+    </h2>
+    <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor7">
+function createFibonacciGenerator() {
+  let a = 0;
+  let b = 1;
+  return function() {
+    let current = a;
+    a = b;
+    b = current + b;
+    return current;
+  };
+}
+let fibonacciGenerator = createFibonacciGenerator();
+console.log(fibonacciGenerator()); // should print 0
+console.log(fibonacciGenerator()); // should print 1
+console.log(fibonacciGenerator()); // should print 1
+console.log(fibonacciGenerator()); // should print 2
+console.log(fibonacciGenerator()); // should print 3
+console.log(fibonacciGenerator()); // should print 5
+console.log(fibonacciGenerator()); // should print 8
+// another way
+const numFib = 50;
+let x = 0;
+let y = 1;
+let fn = x + y;
+console.log(x);
+while (fn < numFib) {
+  console.log(fn);
+  fn = x + y;
+  x = y;
+  y = fn;
+}          
+      </div>  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+        QUE 8:   1. remove duplicate item from below array and sort them, If Id is same display both item.  <br>
+2. filter and find the data in age is greater than 30.
+      </button>
+    </h2>
+    <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor8">
+ const inputArray = [{
+     id: 3,
+     name: "aniruddh",
+     age: 42
+   },
+   {
+     id: 1,
+     name: "kadia",
+     age: 32
+   },
+   {
+     id: 2,
+     name: "kiaan",
+     age: 22
+   },
+   {
+     id: 1,
+     name: "bhavini",
+     age: 27
+   },
+   {
+     id: 3,
+     name: "ramesh",
+     age: 62
+   },
+ ];
+ const uniqueSortedArray = inputArray
+   .filter((ele, index, array) => index === array.findIndex((i) => i.id === ele.id))
+   .sort((a, b) => a.id - b.id);
+ console.log(uniqueSortedArray); // [{age: 32, id: 1, name: "kadia"}, {age: 22, id: 2, name:"kiaan"}, {age: 42, id: 3, name: "aniruddh"}]
+ const duplicatesArr = inputArray.reduce((acc, curr) => {
+   acc[curr.id] = (acc[curr.id] || 0) + 1;
+   return acc;
+ }, {});
+ const dupArrResult = inputArray.filter(item => duplicatesArr[item.id] > 1);
+ console.log(dupArrResult);
+ const filterItem = inputArray.filter((item) => {
+   return item.age > 30;
+ });
+ console.log(filterItem); // [{age: 42, id: 3, name: "aniruddh"}, {age: 32, id: 1, name: "kadia"}, {age: 62, id: 3, name: "ramesh"}]
+ const findItem = inputArray.find((item) => {
+   return item.age > 30;
+ });
+ console.log(findItem); // [{age: 42, id: 3, name: "aniruddh"}]
+ //====================================================
+ // make value in uppercase. 
+ const inputArray = [{
+     name: "apple",
+     color: "red"
+   },
+   {
+     name: "orange",
+     color: "green"
+   },
+   {
+     name: "banana",
+     color: "blue"
+   }
+ ];
+ const upperCaseArray = inputArray.map(item => {
+   return {
+     name: item.name.toUpperCase(),
+     color: item.color.toUpperCase()
+   };
+ });
+ console.log(upperCaseArray);
+ //Output: [{ color: "RED", name: "APPLE"}, { color: "GREEN", name: "ORANGE"}, { color: "BLUE", name: "BANANA"}]
+ //====================================================
+ // sorting value. 
+ const inputArray = [{
+     name: "apple",
+     color: "red"
+   },
+   {
+     name: "orange",
+     color: "green"
+   },
+   {
+     name: "banana",
+     color: "blue"
+   }
+ ];
+ // method 1(sort name):
+ const sortValue = inputArray
+   .sort((a, b) => a.name.localeCompare(b.name))
+   .map(item => ({
+     name: item.name,
+     color: item.color
+   }));
+ // method 1(sort color):
+ // const sortValue = inputArray
+ //   .sort((a, b) => a.color.localeCompare(b.color))
+ //   .map(item => ({ color: item.color, name: item.name }));
+ // method 2:
+ // const sortValue = inputArray
+ // .sort((a,b) => {if(a.name < b.name) return -1; if(a.name > b.name) return 1;
+ //   return 0;
+ // })
+ console.log(sortValue);
+ /*
+ [{color: "red", name: "apple"}, {color: "blue", name: "banana"}, {color: "green", name: "orange"}]
+ */
+ //====================================================
+ //clouser Codding question
+ function outerfun() {
+   var x = 10; // Initial value of x
+   function inner() {
+     var y = 5;
+     console.log(x + y); // This will log 25
+     return x + y; // Return the sum
+   }
+   x = 20; // Update value of x before calling inner()
+   return inner(); // Call inner() and return its result
+ }
+ let sum = outerfun();
+ console.log(sum); // This will log 25
+ //====================================================
+ //promises output base question
+ setTimeout(() => {
+   console.log('This will print 100');
+ }, 0);
+ Promise.resolve(console.log('This will print 200'));
+ console.log('This will print 300');
+ /*
+ "This will print 200"
+ "This will print 300"
+ "This will print 100"
+ */
+ //====================================================
+ //this key base question
+ let person = {
+   name: 'John',
+   age: 30,
+   greet: function() {
+     console.log('Hello, my name is ' + this.name + ' and I am ' + this.age + ' years old.');
+   }
+ };
+ // with issue (we got thi.name and this.age value undefined)
+ let greetFunc = person.greet;
+ greetFunc(); //Hello, my name is undefined and I am undefined years old.
+ //how to solve above issue (using bind method)
+ let greetFuncBind = person.greet.bind(person);
+ greetFuncBind(); // Output: Hello, my name is John and I am 30 years old.
+ //====================================================
+ // Function Call: 
+ // When you call greetFunc, this inside the greet method is not bound to the person object anymore. Instead, it refers to the global context (or undefined in strict mode), which doesn't have name and age properties. As a result, this.name and this.age are undefined.
+ // Explanation of the Fix
+ // bind Method: bind(person) creates a new function with this permanently set to the person object, 
+ // ensuring that the method works as intended when called outside the context of the person object.         
+      </div>  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+        QUE 9:    Prime numbers  <br>
+// prime number are those which are divided by itself or 1  <br>
+// for example 2,3,5,7,11,13,17...  <br>
+// prime number of negative number is not possible.  <br>
+      </button>
+    </h2>
+    <div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor9">
+function isPrime(num) {
+  if (num <= 1) return false; // 1 and numbers less than 1 are not prime
+  for (let i = 2; i <= Math.sqrt(num); i++) { // Check divisibility up to the square root of num
+    if (num % i === 0) return false; // If divisible by any number, it's not prime
+  }
+  return true; // If no divisors, it's a prime number
+}
+// Example usage:
+console.log(isPrime(11)); // true
+console.log(isPrime(15)); // false
+console.log(isPrime(2)); // true          
+      </div>  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+        QUE 10: 1. Write a function which loops through an array and checks if n of the elements   <br>
+of the array satisfy the condition function that is passed <br>
+Signature of the 'some' function <br>
+(array, n, conditionFunction) -> trueOrFalse  <br>
+array - Input array  <br>
+n - The function should check if n elements of the conditionFunction satisfy  <br>
+Signature of the 'isEven' and 'isPrime' functions. They should take one integer as input and return a true or false value.  <br>
+(int) -> trueOrFalse  <br>
+Write the some function and isEven and isPrime functions
+      </button>
+    </h2>
+    <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor10">
+// Function to check if a number is even
+function isEven(num) {
+  return num % 2 === 0;
+}
+// Function to check if a number is prime
+function isPrime(num) {
+  if (num <= 1) return false;
+  if (num === 2) return true; // 2 is prime
+  if (num % 2 === 0) return false; // other even numbers are not prime
+  // Check for odd factors from 3 onwards
+  for (let i = 3; i <= Math.sqrt(num); i += 2) {
+    if (num % i === 0) return false;
+  }
+  return true;
+}
+// Function to check if at least n elements in array satisfy the condition function
+function some(array, n, conditionFunction) {
+  let count = 0;
+  for (let i = 0; i < array.length; i++) {
+    if (conditionFunction(array[i])) {
+      count++;
+      if (count === n) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+console.log(some([2, 4, 6], 3, isEven)); // should print true
+console.log(some([2, 3, 4], 3, isEven)); // should print false
+console.log(some([2, 3, 11], 4, isPrime)); // should print false
+console.log(some([2, 3, 5, 9], 3, isPrime)); // should print true          
+      </div>  
+      </div>
+    </div>
+  </div>
+
+
+  <!-- start section 10 -->
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+        QUE 11:    Have the function QuestionsMarks(str) take the str string parameter, which will contain single digit numbers, letters, and question marks, and check if there are exactly 3 question marks between every pair of two numbers that add up to 10. If so, then your program should return the string true, otherwise it should return the string false. If there aren't any two numbers that add up to 10 in the string, then your program should return false as well.
+        <br>
+// For example: if str is "arrb6???4xxbl5???eee5" then your program should return true because there are exactly 3 question marks between 6 and 4, and 3 question marks between 5 and 5 at the end of the string.  <br>
+
+//   Input: "aa6?9"  <br>
+// Output: false  <br>
+
+// Input: "acc?7??sss?3rr1??????5"  <br>
+// Output: true
+      </button>
+    </h2>
+    <div id="collapseEleven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor11">
+function QuestionsMarks(str) {
+  let res = false; // Initialize a flag to keep track of whether we find a valid pair
+  // Outer loop to iterate over each character in the string
+  for (let i = 0; i < str.length; i++) {
+    // Skip non-numeric characters
+    if (isNaN(str[i])) continue;
+    // Inner loop to compare the current character with subsequent characters
+    for (let j = i + 1; j < str.length; j++) {
+      // Skip non-numeric characters
+      if (isNaN(str[j])) continue;
+      // Check if the sum of the current and next digit equals 10
+      if (Number(str[i]) + Number(str[j]) === 10) {
+        res = true; // Set the result flag to true
+        // Check if there are at least 3 question marks between the two digits
+        if (str.slice(i + 1, j).split("?").length - 1 < 3) {
+          return false; // Return false if the condition is not met
+        }
+      }
+    }
+  }
+  return res; // Return true if at least one valid pair was found
+}
+// Test the function
+console.log(QuestionsMarks("aa6?9")); // Example test   // false
+console.log(QuestionsMarks("acc?7??sss?3rr1??????5")); // No pairs adding to 10   // true
+console.log(QuestionsMarks("1?5?9??1?")); // Valid pair with enough question marks  // false          
+      </div>  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+        QUE 12:  https://leetcode.com/problems/add-two-numbers/description/
+      </button>
+    </h2>
+    <div id="collapseTwelve" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor12">
+ function twoSum(nums, target) {
+   const map = {}; // Hashmap to store element -> index mapping
+   for (let i = 0; i < nums.length; i++) {
+     const complement = target - nums[i];
+     // Check if complement exists in the map
+     if (map.hasOwnProperty(complement)) {
+       return [map[complement], i]; // Return indices of complement and current element
+     }
+     // Store current element in the map
+     map[nums[i]] = i;
+   }
+   // No valid solution found (though problem guarantees exactly one solution)
+   return [];
+ }
+ // Test cases
+ console.log(twoSum([2, 7, 11, 15], 9)); // Output: [0, 1]
+ console.log(twoSum([3, 2, 4], 6)); // Output: [1, 2]
+ console.log(twoSum([3, 3], 6)); // Output: [0, 1]         
+      </div>  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
+        QUE 13:  All the method we can  use in Array.
+      </button>
+    </h2>
+    <div id="collapseThirteen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor13">
+ const numbers = [1, 2, 3, 4, 5];
+ numbers.forEach(num => console.log(num));
+ // output: we get array
+ const doubled = numbers.map(num => num * 2);
+ console.log(doubled);
+ // output: [2, 4, 6, 8, 10]
+ for (let i = 0; i < numbers.length; i++) {
+   console.log(numbers[i]); // output: we get array
+ }
+ for (let index in numbers) {
+   console.log(numbers[index]); // output: we get array
+ }
+ for (let num of numbers) {
+   console.log(num); // output: we get array
+ }
+ const foundArray = numbers.find(num => num > 2);
+ console.log(foundArray); // output: 3
+ const evens = numbers.filter(num => num % 2 === 0);
+ console.log(evens); // output: [2, 4]
+ const index = numbers.indexOf(2);
+ console.log(index); //output: 1
+ const hasFive = numbers.includes(2);
+ console.log(hasFive); //output: true
+ const lastIndex = numbers.lastIndexOf(2);
+ console.log(lastIndex); //output: 1
+ const firstEvenIndex = numbers.findIndex(num => num % 2 === 0);
+ console.log(firstEvenIndex); // output: 1         
+      </div>  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourteen" aria-expanded="false" aria-controls="collapseFourteen">
+        QUE 14:  All the method we can  use in Array.
+      </button>
+    </h2>
+    <div id="collapseFourteen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor14">
+ const user = {
+   id: 1,
+   name: "Alice",
+   age: 25,
+   city: "Wonderland",
+   hobbies: ["reading", "gaming", "coding"]
+ };
+ Object.entries(user).forEach(([key, value]) => {
+   console.log(`${key}: ${value}`);
+ });
+ /* we got object */
+ const keys = Object.keys(user);
+ for (let i = 0; i < keys.length; i++) {
+   console.log(`${keys[i]}: ${user[keys[i]]}`);
+ }
+ /* we got object */
+ for (let key in user) {
+   console.log(`${key}: ${user[key]}`);
+ }
+ /* we got object */
+ for (let [key, value] of Object.entries(user)) {
+   console.log(`${key}: ${value}`);
+ }
+ /* we got object */
+ const mapped = Object.entries(user).map(([key, value]) => `${key}: ${value}`);
+ console.log(mapped);
+ /* ["id: 1", "name: Alice", "age: 25", "city: Wonderland", "hobbies: reading,gaming,coding"] */
+ const foundObj = Object.entries(user).find(([key, value]) => key === "city");
+ console.log(foundObj); // ["city", "Wonderland"]
+ const filtered = Object.entries(user).filter(([key, value]) => typeof value === "string");
+ console.log(filtered); // [["name", "Alice"], ["city", "Wonderland"]]
+ const keyIndex = Object.keys(user).indexOf("age");
+ console.log(keyIndex); // 2
+ const valueIndex = Object.values(user).indexOf("Alice");
+ console.log(valueIndex); // 1
+ const hasAlice = Object.values(user).includes("Alice");
+ console.log(hasAlice); // true
+ const findIndex = Object.entries(user).findIndex(([key, value]) => key === "hobbies");
+ console.log(findIndex); // 4
+ const sortedKeys = Object.keys(user).sort();
+ console.log(sortedKeys); // ["age", "city", "hobbies", "id", "name"]
+ const sortedEntries = Object.entries(user).sort(([keyA], [keyB]) => keyA.localeCompare(keyB));
+ console.log(sortedEntries);
+ /* [["age", 25], ["city", "Wonderland"], ["hobbies", ["reading", "gaming", "coding"]], ["id", 1], ["name", "Alice"]]*/
+ const reduced = Object.entries(user).reduce((acc, [key, value]) => {
+   return `${acc}${key}: ${value}, `;
+ }, "");
+ console.log(reduced); // "id: 1, name: Alice, age: 25, city: Wonderland, hobbies: reading,gaming,coding, "
+ const flattenedHobbies = user.hobbies.flat();
+ console.log(flattenedHobbies); // ["reading", "gaming", "coding"]
+      </div>  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFifteen" aria-expanded="false" aria-controls="collapseFifteen">
+        QUE 15:  Difference between map and forEach
+      </button>
+    </h2>
+    <div id="collapseFifteen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor15">
+ const numArr = [1, 2, 3];
+ const res = numArr.map(ele => ele * 2);
+ console.log("res", res); // [2, 4, 6]  // return new Array
+ console.log("numArr", numArr); // [1, 2, 3]  // Not change value (unmutable)
+ const numArr2 = [1, 2, 3];
+ const res2 = numArr2.forEach((val, i, arr) => (arr[i] = val * 2));
+ console.log("res2", res2); // undefined // forEach not return anything
+ console.log("numArr2", numArr2); // [2, 4, 6]  // change value (mutable)         
+      </div>  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSixteen" aria-expanded="false" aria-controls="collapseSixteen">
+        QUE 16: compare strind and array and access data from object.
+      </button>
+    </h2>
+    <div id="collapseSixteen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor16">
+ var x = "7"; //string
+ var y = 7; // value
+ console.log(x == y); //true // == check only value
+ console.log(x === y); //false // === check both value and type
+ let a = {
+   name: "ani"
+ };
+ let b = {
+   name: "ani"
+ };
+ // "===" the comparison is based on reference, not on the actual content of the objects.
+ console.log(a === b); // false // == both reference are store in different memory location
+ console.log(a.name === b.name); //true
+      </div>  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSevenTeen" aria-expanded="false" aria-controls="collapseSevenTeen">
+        QUE 17:  multiple of 3='fizz' 5='buzz' 15='fizzbuzz'
+      </button>
+    </h2>
+    <div id="collapseSevenTeen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor17">
+  for (let i = 1; i <= 100; i++) {
+    if (i % 15 == 0) {
+      console.log('fizzbuzz');
+    } else if (i % 3 == 0) {
+      console.log('fizz');
+    } else if (i % 5 == 0) {
+      console.log('buzz')
+    } else {
+      console.log(i)
+    }
+  }
+  </div>  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEighteen" aria-expanded="false" aria-controls="collapseEighteen">
+        QUE 18:  compare two array are same or  not
+      </button>
+    </h2>
+    <div id="collapseEighteen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor18">
+let array1 = [5, 4, 8, 10, 9];
+let array2 = [5, 10, 8, 9, 4];
+const areArraysEqual = (arr1, arr2) => {
+  if (arr1.length !== arr2.length) return false;
+  return arr1.sort().every((value, index) => value === arr2.sort()[index]);
+};
+let result = areArraysEqual(array1, array2);
+console.log(result); // true
+      </div>  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNineteen" aria-expanded="false" aria-controls="collapseNineteen">
+        QUE 19:  reverse array and number  <br>
+parseInt is used to convert 'string' to 'number' 
+      </button>
+    </h2>
+    <div id="collapseNineteen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor19">
+// Reverse Array
+let revArr = [1, 2, 3];
+revArr.reverse();
+console.log(revArr); // Output: [3, 2, 1]
+// Reverse Number
+let Num = 123;
+let reversedNumber = parseInt(Num.toString().split('').reverse().join(''));
+console.log(reversedNumber); //321
+//Reverse whole String
+const stringData = "sun rises in the east";
+const reversedString = stringData.split('').reverse().join('');
+console.log(reversedString); // "tsae eht ni sesir nus"
+//Reverse String words
+const reverseWords = (str) => {
+  return str.split(' ').map(word => word.split('').reverse().join('')).join(' ');
+};
+console.log(reverseWords(stringData)); //"nus sesir ni eht tsae" 
+      </div>  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwenty" aria-expanded="false" aria-controls="collapseTwenty">
+        QUE 20:  find UNION(common value from two array) of two Array
+      </button>
+    </h2>
+    <div id="collapseTwenty" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div id="editor20">
+  const num1 = [4, 9, 5];
+  const num2 = [9, 4, 9, 8, 4];
+  const getUnion = () => {
+    let oneArr = [...num1, ...num2];
+    return [...new Set(oneArr)];
+  };
+  console.log(getUnion());
+  console.log(getUnion().sort());
+  console.log(getUnion().sort().reverse());
+      </div>  
+      </div>
+    </div>
+  </div>
+
+<!-- end section 10 -->
+
+
+<!-- start section 10 -->
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwentyone" aria-expanded="false" aria-controls="collapseTwentyone">
+      QUE 21: find INTERSECTION(common from two array) of two Array
+    </button>
+  </h2>
+  <div id="collapseTwentyone" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor21">
+ var intOne = [1, 2, 2, 1, 4, 9, 5];
+ var intTwo = [2, 2, 9, 4, 5, 8, 4];
+ let interSec = intOne.filter((curElem) => {
+   return intTwo.includes(curElem);
+ });
+ console.log([...new Set(interSec)]);
+    </div>  
+    </div>
+  </div>
+</div>
+
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwentytwo" aria-expanded="false" aria-controls="collapseTwentytwo">
+      QUE 22:  diff null vs undefined
+    </button>
+  </h2>
+  <div id="collapseTwentytwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor22">
+let x;
+console.log(x); // output: undefined
+console.log(typeof x); // output: "undefined"
+let y = null;
+console.log(y); // output: null
+console.log(typeof y); // output: "object"
+console.log(undefined == null); // output: true
+console.log(undefined === null); // output: false
+    </div>  
+    </div>
+  </div>
+</div>
+
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwentythree" aria-expanded="false" aria-controls="collapseTwentythree">
+      QUE 23:  An immediately invoked function expression (IIFE) in a JavaScript
+    </button>
+  </h2>
+  <div id="collapseTwentythree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor23">
+(function() {
+  console.log("This is an immediately invoked function!");
+})();
+//You can also pass arguments to an IIFE:
+(function(message) {
+  console.log(message);
+})("Hello, world!");
+//How to Make a Accessible Globally:
+(function() {
+  window.a = 5; // Or just a = 5; if you don't use "use strict"
+})();
+console.log(a); // 5
+    </div>  
+    </div>
+  </div>
+</div>
+
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwentyfour" aria-expanded="false" aria-controls="collapseTwentyfour">
+      QUE 24:  Defining Getters and Setters
+    </button>
+  </h2>
+  <div id="collapseTwentyfour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor24">
+//Example with Object Literals:
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  // Getter for fullName
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  },
+  // Setter for fullName
+  set fullName(name) {
+    const parts = name.split(" ");
+    this.firstName = parts[0];
+    this.lastName = parts[1];
+  }
+};
+// Using the getter
+console.log(person.fullName); // Output: John Doe
+// Using the setter
+person.fullName = "Jane Smith";
+console.log(person.firstName); // Output: Jane
+console.log(person.lastName); // Output: Smith
+//Example with Object.defineProperty:
+const person = {
+  firstName: "John",
+  lastName: "Doe"
+};
+// Defining getter and setter using Object.defineProperty
+Object.defineProperty(person, "fullName", {
+  get: function() {
+    return `${this.firstName} ${this.lastName}`;
+  },
+  set: function(name) {
+    const parts = name.split(" ");
+    this.firstName = parts[0];
+    this.lastName = parts[1];
+  }
+});
+// Using the getter
+console.log(person.fullName); // Output: John Doe
+// Using the setter
+person.fullName = "Jane Smith";
+console.log(person.firstName); // Output: Jane
+console.log(person.lastName); // Output: Smith
+    </div>  
+    </div>
+  </div>
+</div>
+
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwentyfive" aria-expanded="false" aria-controls="collapseTwentyfive">
+      QUE 25:  Syntax of a Function Expression
+    </button>
+  </h2>
+  <div id="collapseTwentyfive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor25">
+// Anonymous Function Expression
+const greet = function() {
+  console.log("Hello, world!");
+};
+// Named Function Expression
+const greet = function sayHello() {
+  console.log("Hello, world!");
+};
+// Invoking the function
+greet(); // Output: Hello, world!
+//Example of an Anonymous Function Expression:
+const square = function(x) {
+  return x * x;
+};
+console.log(square(5)); // Output: 25
+//Example of a Named Function Expression:
+const factorial = function fact(n) {
+  if (n <= 1) return 1;
+  return n * fact(n - 1); // Recursively calls itself
+};
+console.log(factorial(5)); // Output: 120
+//Use Cases for Function Expressions:
+setTimeout(function() {
+  console.log("This runs after 2 seconds");
+}, 2000);
+//Immediately Invoked Function Expressions(IIFE):
+(function() {
+  console.log("This is an IIFE");
+})();
+//Example in an Array:
+const operations = [
+  function(x) {
+    return x + 1;
+  },
+  function(x) {
+    return x * 2;
+  },
+  function(x) {
+    return x * x;
+  }
+];
+const result = operations.map(op => op(5));
+console.log(result); // Output: [6, 10, 25]
+    </div>  
+    </div>
+  </div>
+</div>
+
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwentysix" aria-expanded="false" aria-controls="collapseTwentysix">
+      QUE 26:  Example Higher-order functions
+    </button>
+  </h2>
+  <div id="collapseTwentysix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor26">
+const users = [
+ { name: "Alice", age: 25, isActive: true },
+ { name: "Bob", age: 30, isActive: false },
+ { name: "Charlie", age: 35, isActive: true },
+ { name: "David", age: 40, isActive: false }
+];
+ const activeUsers = users.filter(user => user.isActive);
+ console.log(activeUsers);
+ // Output:
+ // [
+ //   { name: "Alice", age: 25, isActive: true },
+ //   { name: "Charlie", age: 35, isActive: true }
+ // ]
+ const usersAbove30 = users.filter(user => user.age > 30);
+ console.log(usersAbove30);
+ // Output:
+ // [
+ //   { name: "Charlie", age: 35, isActive: true },
+ //   { name: "David", age: 40, isActive: false }
+ // ]
+    </div>  
+    </div>
+  </div>
+</div>
+
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwentyseven" aria-expanded="false" aria-controls="collapseTwentyseven">
+      QUE 27:  difference between filter, map, and reduce function
+    </button>
+  </h2>
+  <div id="collapseTwentyseven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor27">
+const numbers = [1, 2, 3, 4, 5];
+// Sum of squares of even numbers
+const sumOfSquares = numbers
+  // Filtering out even numbers
+  .filter(num => num % 2 === 0) // [2, 4]
+  // Doubling each number
+  .map(num => num * num) // [4, 16]
+  // Summing up all the numbers
+  .reduce((sum, num) => sum + num, 0); // 20
+console.log(sumOfSquares); // Output: 20
+    </div>  
+    </div>
+  </div>
+</div>
+
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwentyeight" aria-expanded="false" aria-controls="collapseTwentyeight">
+      QUE 28:  first class function in javascript
+    </button>
+  </h2>
+  <div id="collapseTwentyeight" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor28">
+// 1. Assigned to variables: You can assign a function to a variable.
+// 2. Passed as arguments: Functions can be passed as arguments to other functions.
+// 3. Returned from other functions: Functions can be returned by other functions.
+// 4. Stored in data structures: Functions can be stored in arrays, objects, etc.
+const greet = function(name) {
+  return `Hello, ${name}!`;
+};
+console.log(greet("Alice")); // Output: Hello, Alice!
+/*====================================================*/
+function callWithTwo(callback) {
+  return callback(2);
+}
+const result = callWithTwo(function(num) {
+  return num * num;
+});
+console.log(result); // Output: 4
+/*====================================================*/
+function createMultiplier(multiplier) {
+  return function(number) {
+    return number * multiplier;
+  };
+}
+const double = createMultiplier(2);
+console.log(double(5)); // Output: 10
+const triple = createMultiplier(3);
+console.log(triple(5)); // Output: 15
+/*====================================================*/
+const operations = {
+  add: function(a, b) {
+    return a + b;
+  },
+  subtract: function(a, b) {
+    return a - b;
+  },
+  multiply: function(a, b) {
+    return a * b;
+  },
+  divide: function(a, b) {
+    return a / b;
+  }
+};
+console.log(operations.add(10, 5)); // Output: 15
+console.log(operations.subtract(10, 5)); // Output: 5
+console.log(operations.multiply(10, 5)); // Output: 50
+console.log(operations.divide(10, 5)); // Output: 2
+/*
+Summary:
+Because functions in JavaScript are first - class, they can be used in versatile and powerful ways, such as callbacks, function factories, or within data structures, enabling a more functional programming style.This concept is fundamental to understanding more advanced topics in JavaScript, such as closures, higher - order functions, and asynchronous programming.
+*/
+      </div>  
+    </div>
+  </div>
+</div>
+
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwentynine" aria-expanded="false" aria-controls="collapseTwentynine">
+      QUE 29:  example of converting object into array
+    </button>
+  </h2>
+  <div id="collapseTwentynine" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor29">
+const obj = { a: 1, b: 2, c: 3 };
+//Object Keys to Array
+const keysData = Object.keys(obj);
+console.log(keysData); // Output: ["a", "b", "c"]
+//Object Values to Array
+const valuesData = Object.values(obj);
+console.log(valuesData); // Output: [1, 2, 3]
+//Object Entries to Array
+const entriesData = Object.entries(obj);
+console.log(entriesData); // Output: [["a", 1], ["b", 2], ["c", 3]]
+//Converting an Object to an Array of Custom Format
+const customArray = Object.keys(obj).map(key => ({
+  key,
+  value: obj[key]
+}));
+console.log(customArray);
+// Output: [{ key: "a", value: 1 }, { key: "b", value: 2 }, { key: "c", value: 3 }]
+    </div>  
+    </div>
+  </div>
+</div>
+
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirty" aria-expanded="false" aria-controls="collapseThirty">
+      QUE 30:  NaN result
+    </button>
+  </h2>
+  <div id="collapseThirty" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor30">
+  //Invalid Arithmetic Operations:
+  let result = 0 / 0; // NaN
+  //Parsing Invalid Numbers:
+  let num = parseInt("abc"); // NaN
+  //Operations with undefined
+  let value = undefined + 1; // NaN
+  let sum = 'abc' / 2 ;  // NaN
+    </div>  
+    </div>
+  </div>
+</div>
+
+<!-- end section 10 -->
+
+
+<!-- start section 10 -->
+
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirtyone" aria-expanded="false" aria-controls="collapseThirtyone">
+      QUE 31:  Sort without in built method
+      /* 1. Choose a pivot: Select an element from the array, called the pivot.
+      2. Partition: Rearrange the array so that all elements less than the pivot are on the left, 
+      and all elements greater are on the right.
+      3. Recursively sort: Apply Quick Sort to the subarrays on the left and right of the pivot.
+      4. Combine: Combine the sorted subarrays and the pivot to produce the final sorted array. */
+    </button>
+  </h2>
+  <div id="collapseThirtyone" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+<div id="editor31">
+let data = [32, 11, 22, 3, 10, 18];
+function quickSort(array) {
+  if (array.length <= 1) {
+    return array;
+  }
+  let pivot = array[array.length - 1]; // Choosing the last element as the pivot
+  let left = [];
+  let right = [];
+  for (let i = 0; i < array.length - 1; i++) {
+    if (array[i] < pivot) {
+      left.push(array[i]); // Elements less than pivot go to the left
+    } else {
+      right.push(array[i]); // Elements greater than pivot go to the right
+    }
+  }
+  // Recursively sort left and right, then combine with the pivot
+  return [...quickSort(left), pivot, ...quickSort(right)];
+}
+let sortedData = quickSort(data);
+console.log(sortedData); // [3, 10, 11, 18, 22, 32]
+</div>  
+    </div>
+  </div>
+</div>
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirtytwo" aria-expanded="false" aria-controls="collapseThirtytwo">
+      QUE 32:  click on h1 tag name should be change: 
+    </button>
+  </h2>
+  <div id="collapseThirtytwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor32">
+const user = ['Ani', 'bhavi', 'kiaan'];
+const helloElement = document.getElementById('hello');
+helloElement.addEventListener('click', () => {
+  helloElement.textContent = user[0]; // Set the text to the first element in the array
+  user.push(user.shift()); // Move the first element to the end of the array
+});
+    </div>  
+    </div>
+  </div>
+</div>
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirtythree" aria-expanded="false" aria-controls="collapseThirtythree">
+      QUE 33:  netflix image slider code:
+    </button>
+  </h2>
+  <div id="collapseThirtythree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor33">
+const centerdiv = document.getElementById('centerdiv');
+fetch('https://jsonplaceholder.typicode.com/photos?_limit=20')
+  .then((apidata) => apidata.json())
+  .then((jsondata) => {
+    jsondata.map((val) => {
+      let img = document.createElement('img');
+      img.src = `https://picsum.photos/200/300?random=${val.id}`;
+      centerdiv.appendChild(img);
+    });
+  });
+    </div>  
+    </div>
+  </div>
+</div>
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirtyfour" aria-expanded="false" aria-controls="collapseThirtyfour">
+      QUE 34:  Write a JavaScript function to check if a given string is a palindrome (reads the same forwards and backwards)
+    </button>
+  </h2>
+  <div id="collapseThirtyfour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor34">
+function isPalindrome(str) {
+		  
+  const cleanStr = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+  return cleanStr === cleanStr.split('').reverse().join('');
+}
+// Example usage:
+console.log(isPalindrome("A man, a plan, a canal: Panama")); // true
+console.log(isPalindrome("hello")); // false
+console.log(isPalindrome("madam")); // true
+      </div>  
+    </div>
+  </div>
+</div>
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirtyfive" aria-expanded="false" aria-controls="collapseThirtyfive">
+      QUE 35:  we can check string is palindrome or not but in string we not include space, comma, semi-column etc if there is space or comma we can use above method not below three method.
+    </button>
+  </h2>
+  <div id="collapseThirtyfive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor35">
+  //Approach 1: Using for loop (Efficient Approach)
+  function isPaliLoop(str) {
+    let j = str.length - 1;
+    for (let i = 0; i < str.length / 2; i++) {
+      if (str[i] != str[j]) {
+        return false;
+      }
+      j--;
+    }
+    return true;
+  }
+  // Approach 2: Checking the String from Last
+  function isPaliLast(str) {
+    let rev = "";
+    for (let i = str.length - 1; i >= 0; i--) {
+      rev += str[i];
+    }
+    if (rev == str) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  // Approach 3: Using split(), reverse() and join() Methods
+  function isPaliMethod(str) {
+    let rev = str.split("").reverse().join("");
+    return str === rev;
+    //if (rev == str) {return true} return false
+  }
+  console.log(isPaliLoop("racecar")); // true
+  console.log(isPaliLoop("nitin")); // true
+  console.log(isPaliLoop("madam")); // true
+  console.log(isPaliLoop("Rama")); // false
+  console.log(isPaliLoop("hello")); // false
+
+  console.log(isPaliLast("racecar")); // true
+  console.log(isPaliLast("nitin")); // true
+  console.log(isPaliLast("madam")); // true
+  console.log(isPaliLast("Rama")); // false
+  console.log(isPaliLast("hello")); // false
+
+  console.log(isPaliMethod("racecar")); // true
+  console.log(isPaliMethod("nitin")); // true
+  console.log(isPaliMethod("madam")); // true
+  console.log(isPaliMethod("Rama")); // false
+  console.log(isPaliMethod("hello")); // false
+    </div>  
+    </div>
+  </div>
+</div>
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirtysix" aria-expanded="false" aria-controls="collapseThirtysix">
+      QUE 36:  Write a JavaScript program to convert a string to title case (capitalize the first letter of each word). 
+    </button>
+  </h2>
+  <div id="collapseThirtysix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor36">
+ // split and map and join method
+ let str = "my name is aniruddh";
+ let upper = str
+   .split(' ')
+   .map(item => item[0].toUpperCase() + item.slice(1))
+   .join(' ');
+ console.log(upper);
+ // Another Method
+ function toTitleCase(str) {
+   return str.replace(/\b\w/g, l => l.toUpperCase());
+ }
+ console.log(toTitleCase("my name is aniruddh"));
+    </div>  
+    </div>
+  </div>
+</div>
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirtyseven" aria-expanded="false" aria-controls="collapseThirtyseven">
+      QUE 37:  Implement a debounce function in JavaScript that limits the frequency of a function’s execution when it’s called  repeatedly within a specified time frame.
+    </button>
+  </h2>
+  <div id="collapseThirtyseven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor37">
+//Debounce Implementation:
+function debounce(func, delay) {
+  let timer;
+  return function(...args) {
+    clearTimeout(timer); // Clear the previous timer
+    timer = setTimeout(() => {
+      func.apply(this, args); // Execute the function after delay
+    }, delay);
+  };
+}
+/* Example Usage: In this example, a function handleSearch is called only after the user has stopped typing for 300 milliseconds: */
+// Example function to be debounced
+function handleSearch(query) {
+  console.log('Searching for:', query);
+}
+// Wrap the function with debounce (delay of 300ms)
+const debouncedSearch = debounce(handleSearch, 300);
+// Simulate user typing with calls to debouncedSearch
+debouncedSearch('a');
+debouncedSearch('ab');
+debouncedSearch('abc');
+// Only the last call with 'abc' will be executed after 300ms
+      </div>  
+    </div>
+  </div>
+</div>
+<!-- end section 10 -->
+</div>
+
+<div class="container-fluid " style="background-color: #edf2f9;">
+  <footer class="py-3">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Back To Top</a></li>
+    </ul>
+    <p class="text-center text-muted">© 2024 Aniruddha Kadia</p>
+  </footer>
+</div>
+<!-- <script src="./ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/ace.min.js"></script>
+<script src="./custom-acecode.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
