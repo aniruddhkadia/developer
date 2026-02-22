@@ -1,0 +1,80 @@
+🚀 Enhanced PurchaseIQReactSupabase – Product & Analytics Dashboard
+Upgraded my full-stack dashboard project with advanced real-world architecture using:
+
+⚛️ React + Vite (Frontend)
+🗄 Supabase (Database + Auth + RLS)
+📊 Recharts (Analytics & Visualizations)
+🔄 n8n (Workflow Automation)
+
+▲ Deployed on Vercel
+✔ Live business analytics dashboard
+✔ Server-side pagination for large datasets
+✔ Advanced filtering & aggregated metrics
+✔ Role-Based Access Control (6 structured roles)
+✔ Row-Level Security (RLS) enforcement
+✔ Pre-configured role login credentials for easy RBAC testing
+✔ Dark/Light theme + modern glassmorphism UI
+
+🎥 Demo Video:
+https://lnkd.in/gyt7kMRb
+
+🔗 Live App:
+https://lnkd.in/gvajvQGF
+
+💻 GitHub:
+https://lnkd.in/gweDa9JQ
+
+Building production-ready SaaS-style applications with secure architecture, analytics, and scalable frontend
+
+============================================================================
+
+
+🚀 Built a Full-Stack Ecommerce App
+Developed a complete Ecommerce application using:
+⚛️ React (Frontend)
+🧩 Strapi (Product Management Backend)
+💳 Stripe (Secure Payments)
+▲ Deployed on Vercel
+✔ Dynamic product management
+✔ Admin-controlled CMS
+✔ Live payment integration
+✔ Production deployment
+
+🔗 Live Frontend:
+https://lnkd.in/g5e7kSKX
+
+🎥 Demo Video:
+https://lnkd.in/gkR3qfXY
+
+💻 GitHub Repositories:
+Frontend: https://lnkd.in/gMHXf9xr
+Backend: https://lnkd.in/gjfE22AG
+
+Building scalable, real-world full-stack applications.
+hashtag#React hashtag#Strapi hashtag#Stripe hashtag#FullStack hashtag#Ecommerce hashtag#BuildInPublic
+
+============================================================================
+
+🚀 Just Launched: Product Management App
+
+Built a fully functional Product Management Application using React with API integration and image upload support.
+🔹 CRUD operations
+ 🔹 Product data via Dummy JSON API
+ 🔹 Image upload with Cloudinary
+ 🔹 Deployed on Vercel
+
+🎥 Demo Video:
+https://lnkd.in/gbciS8AE
+
+🔗 Live App:
+ https://lnkd.in/gjp-7__z
+
+💻 GitHub:
+ https://lnkd.in/gHwwCCe7
+
+Continuously building and improving my frontend development skills.
+ Open to feedback!
+
+hashtag#React hashtag#FrontendDeveloper hashtag#WebDevelopment hashtag#JavaScript hashtag#BuildInPublic
+
+============================================================================

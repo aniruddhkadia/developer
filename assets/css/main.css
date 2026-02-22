@@ -787,6 +787,71 @@ section {
   }
 }
 
+
+/*--------------------------------------------------------------
+# Project Section
+--------------------------------------------------------------*/
+.project-card {
+  border-radius: 20px;
+}
+
+.media-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  /* Same as YouTube */
+  background: #f2f2f2;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.media-wrapper img,
+.media-wrapper video,
+.media-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.media-wrapper video {
+  display: none;
+}
+
+.tech-badge {
+  background: #eef1f4;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+.btn-custom-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-radius: 30px;
+  padding: 12px 26px;
+  font-weight: 600;
+}
+
+.btn-custom-primary:hover {
+  background-color: var(--color-links-hover);
+  color: var(--color-white);
+}
+
+.btn-custom-secondary {
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  border-radius: 30px;
+  padding: 12px 26px;
+  font-weight: 600;
+}
+
+.btn-custom-secondary:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+
 /*--------------------------------------------------------------
 # Featured Services Section
 --------------------------------------------------------------*/
@@ -839,6 +904,7 @@ section {
 .featured-services .service-item:hover h4 a {
   color: var(--color-primary);
 }
+
 /*--------------------------------------------------------------
 # Testimonials
 --------------------------------------------------------------*/
