@@ -772,7 +772,8 @@ section {
   background-color: var(--color-white);
   margin-bottom: 3rem;
   z-index: 2;
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.06), 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.06), 0 12px 23px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
 }
 
 .about-info .title-s {
@@ -793,6 +794,10 @@ section {
 --------------------------------------------------------------*/
 .project-card {
   border-radius: 20px;
+}
+
+.custom-shadow {
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.06), 0 12px 23px 0 rgba(0, 0, 0, 0.2);
 }
 
 .media-wrapper {
@@ -898,7 +903,7 @@ section {
 
 .featured-services .service-item:hover {
   transform: translateY(-10px);
-  box-shadow: 0px 0 60px 0 rgba(30, 195, 224, 0.1);
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.06), 0 12px 23px 0 rgba(0, 0, 0, 0.2)
 }
 
 .featured-services .service-item:hover h4 a {
@@ -1304,7 +1309,7 @@ section {
 
 .portfolio-details .portfolio-info {
   padding: 30px;
-  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.08);
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.06), 0 12px 23px 0 rgba(0, 0, 0, 0.2)
 }
 
 .portfolio-details .portfolio-info h3 {
@@ -1482,8 +1487,9 @@ section {
 .contact .info-box {
   color: #444444;
   text-align: center;
-  box-shadow: 0 0 30px rgba(214, 215, 216, 0.3);
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.06), 0 12px 23px 0 rgba(0, 0, 0, 0.2);
   padding: 20px 0 30px 0;
+  border-radius: 20px;
 }
 
 .contact .info-box i {
@@ -1509,7 +1515,7 @@ section {
 }
 
 .contact .php-email-form {
-  box-shadow: 0 0 30px rgba(214, 215, 216, 0.4);
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.06), 0 12px 23px 0 rgba(0, 0, 0, 0.2);
   padding: 30px;
 }
 

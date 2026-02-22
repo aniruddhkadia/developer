@@ -190,8 +190,9 @@
           <!-- ======= Project Details Section ======= -->
           <section id="featured-services" class="featured-services">
 
+            <!-- start project 1 -->
             <div class="container py-5">
-              <div class="card shadow-lg border-0 project-card p-4">
+              <div class="card custom-shadow border-0 project-card p-4">
                 <div class="row g-4 align-items-center">
 
                   <!-- LEFT SECTION -->
@@ -273,6 +274,167 @@
                 </div>
               </div>
             </div>
+            <!-- end project 1 -->
+
+
+            <!-- start project 2 -->
+            <div class="container py-5">
+              <div class="card custom-shadow border-0 project-card p-4">
+                <div class="row g-4 align-items-center">
+
+                  <!-- LEFT SECTION -->
+                  <div class="col-lg-6">
+                    <div class="media-wrapper" onclick="playYouTubeVideo()" style="position: relative;">
+                      <img src="./assets/img/projects/ReactViteProductManagement.jpg" alt="Project Preview"
+                        id="projectImage">
+                      <i class="fa-solid fa-play" id="playIcon"
+                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: #fff; cursor: pointer; background-color: rgba(0,0,0,0.6); padding: 20px 25px; border-radius: 50%;"></i>
+                      <iframe id="projectVideo" style="display:none;" width="100%" height="100%" src=""
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                    </div>
+                    <script>
+                      function playYouTubeVideo() {
+                        document.getElementById('projectImage').style.display = 'none';
+                        document.getElementById('playIcon').style.display = 'none';
+                        const iframe = document.getElementById('projectVideo');
+                        iframe.style.display = 'block';
+                        iframe.src = 'https://www.youtube.com/embed/NMYQWnMAXlw?autoplay=1&origin=https://github.com';
+                      }
+                    </script>
+                    <h5 class="fw-semibold mt-4">Project Details</h5>
+                    <p class="text-secondary">
+                      A production-ready Product Management Dashboard built for Aptech Solutions. This application
+                      provides a comprehensive interface for managing products and viewing business metrics using React,
+                      TypeScript, and modern ecosystem tools.
+                    </p>
+                  </div>
+
+                  <!-- RIGHT SECTION -->
+                  <div class="col-lg-6 mt-0">
+
+                    <h4 class="fw-bold mb-2 color-primary">Ecommerce App</h4>
+                    <p class="text-muted"> <strong>Building scalable, real-world full-stack applications</strong></p>
+
+                    <!-- Tech Stack -->
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                      <span class="tech-badge">React</span>
+                      <span class="tech-badge">JSON API</span>
+                      <span class="tech-badge">Cloudinary</span>
+                    </div>
+
+                    <h5 class="fw-semibold mt-4">Key Features</h5>
+                    <ul class="list-unstyled">
+                      <li><i class="bi bi-check-circle-fill color-primary me-2"></i>Dynamic product management</li>
+                      <li><i class="bi bi-check-circle-fill color-primary me-2"></i>Admin-controlled CMS</li>
+                      <li><i class="bi bi-check-circle-fill color-primary me-2"></i>Live payment integration</li>
+                      <li><i class="bi bi-check-circle-fill color-primary me-2"></i>Production deployment</li>
+                    </ul>
+
+                    <!-- Buttons -->
+                    <div class="d-flex gap-3 mt-4">
+                      <a href="https://product-management-react-eight.vercel.app/" target="_blank"
+                        class="btn btn-custom-primary">
+                        Live Demo
+                      </a>
+
+                      <a href="https://github.com/aniruddhkadia/ProductManagementReact" target="_blank"
+                        class="btn btn-custom-secondary">
+                        GitHub Repo
+                      </a>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!-- end project 2 -->
+
+
+            <!-- start project 3 -->
+            <div class="container py-5">
+              <div class="card custom-shadow border-0 project-card p-4">
+                <div class="row g-4 align-items-center">
+
+                  <!-- LEFT SECTION -->
+                  <div class="col-lg-6">
+                    <div class="media-wrapper" onclick="playYouTubeVideo()" style="position: relative;">
+                      <img src="./assets/img/projects/ReactStrapeeStripeEcommerce.png" alt="Project Preview"
+                        id="projectImage">
+                      <i class="fa-solid fa-play" id="playIcon"
+                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: #fff; cursor: pointer; background-color: rgba(0,0,0,0.6); padding: 20px 25px; border-radius: 50%;"></i>
+                      <iframe id="projectVideo" style="display:none;" width="100%" height="100%" src=""
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                    </div>
+                    <script>
+                      function playYouTubeVideo() {
+                        document.getElementById('projectImage').style.display = 'none';
+                        document.getElementById('playIcon').style.display = 'none';
+                        const iframe = document.getElementById('projectVideo');
+                        iframe.style.display = 'block';
+                        iframe.src = 'https://www.youtube.com/embed/50BHOhmVZtU?autoplay=1&origin=https://github.com';
+                      }
+                    </script>
+                    <h5 class="fw-semibold mt-4">Project Details</h5>
+                    <p class="text-secondary">
+                      A scalable ecommerce platform built with React (frontend) and Strapi (backend CMS), featuring
+                      dynamic product management and secure Stripe payment integration. The application enables
+                      admin-controlled content management, real-time product updates, and a smooth user checkout
+                      experience. Fully deployed in production on Vercel with live payment functionality.
+                    </p>
+                  </div>
+
+                  <!-- RIGHT SECTION -->
+                  <div class="col-lg-6 mt-0">
+
+                    <h4 class="fw-bold mb-2 color-primary">React Strapi Ecommerce</h4>
+                    <p class="text-muted"> <strong>Developed a complete Ecommerce application using</strong></p>
+
+                    <!-- Tech Stack -->
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                      <span class="tech-badge">React</span>
+                      <span class="tech-badge">Strapi</span>
+                      <span class="tech-badge">Stripe</span>
+                      <span class="tech-badge">Vercel</span>
+                    </div>
+
+                    <h5 class="fw-semibold mt-4">Key Features</h5>
+                    <ul class="list-unstyled">
+                      <li><i class="bi bi-check-circle-fill color-primary me-2"></i>Dynamic product management</li>
+                      <li><i class="bi bi-check-circle-fill color-primary me-2"></i>Admin-controlled CMS</li>
+                      <li><i class="bi bi-check-circle-fill color-primary me-2"></i>Live payment integration</li>
+                      <li><i class="bi bi-check-circle-fill color-primary me-2"></i>Production deployment</li>
+                    </ul>
+
+                    <!-- Buttons -->
+                    <div class="d-flex gap-3 mt-4">
+                      <a href="https://react-strapi-frontend.vercel.app/" target="_blank"
+                        class="btn btn-custom-primary">
+                        Live Demo
+                      </a>
+
+                      <a href="https://github.com/aniruddhkadia/ReactStrapiFrontend" target="_blank"
+                        class="btn btn-custom-secondary">
+                        GitHub Repo (F)
+                      </a>
+                      <a href="https://github.com/aniruddhkadia/ReactStrapiBackend" target="_blank"
+                        class="btn btn-custom-secondary">
+                        GitHub Repo (B)
+                      </a>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!-- end project 3 -->
+
+
 
           </section>
           <!-- End Project Details Section -->
