@@ -17,22 +17,53 @@
   .accordion-body{
     padding: 0;
   }
+.ace_editor {
+  font: 20px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'Source Code Pro', 'source-code-pro', monospace;
+}
+#btn-back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  z-index: 1000;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
 </style>
 </head>
 <body>
 
-<div class="container-fluid p-1 bg-primary text-white text-center">
-  <h3>JavaScript Concept</h3>
+<!-- start header -->
+<div class="container-fluid p-2 bg-light text-dark sticky-top shadow-sm" style="z-index: 1020;">
+  <div class="d-flex align-items-center">
+    <!-- Checkbox on the left -->
+    <div class="form-check form-switch me-3">
+      <input class="form-check-input" type="checkbox" id="toggleAllAccordion">
+      <label class="form-check-label" for="toggleAllAccordion">
+        All Accordion Close
+      </label>
+    </div>
+    <!-- Centered heading -->
+    <h3 class="flex-grow-1 text-center m-0">
+      JavaScript Concept
+    </h3>
+  </div>
 </div>
-  
+<!-- end Header -->
+
+
 <div class="accordion" id="accordionExample">
+
   <div class="accordion-item">
     <h2 class="accordion-header">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
         QUE 01: Balanced Brackets in An Expression or Valid Parentheses Challenge
       </button>
     </h2>
-    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         
         <div id="editor1">
@@ -40,41 +71,46 @@ function isValid(str) {
   let result = [];
   //  start method 1
   let bracketMap = {
-    ')': '(',
-    '}': '{',
-    ']': '['
-  };
-  for (i = 0; i < str.length; i++) {
-    let char = str.charAt(i);
-    if (char === '(' || char === '{' || char === '[') {
-      result.push(char);
-    } else {
-      if (result.length === 0) {
-        return false;
+       '(' : ')',
+       '{' : '}',
+       '[' : ']'
+     }
+     for (let currentBracket of str) {
+      if (bracketMap[currentBracket]) {
+        result.push(bracketMap[currentBracket]);
+      } else {
+        if (result.pop() !== currentBracket) {
+          return false;
+        }
       }
-      let top = result.pop();
-      if (bracketMap[char] !== top) {
-        return false;
-      }
-    }
-  }
+     }
   //  end method 1
-  //  start method 2
-  // let bracketMap = {
-  //   '(' : ')',
-  //   '{' : '}',
-  //   '[' : ']'
-  // }
-  // for (let char of str){
-  //   if(bracketMap[char]){
-  //      result.push(bracketMap[char])
-  //      } else {
-  //        if(result.pop() !== char){
-  //        return false
-  //        }
-  //      }
-  //  }
+
+/*====================================================*/
+  //start method 2   
+      
+    //  let bracketMap = {
+    //    ')': '(',
+    //    '}': '{',
+    //    ']': '['
+    //  };
+    //  for (let i = 0; i < str.length; i++) {
+    //    let char = str.charAt(i);
+    //    if (char === '(' || char === '{' || char === '[') {
+    //      result.push(char);
+    //    } else {
+    //      if (result.length === 0) {
+    //        return false;
+    //      }
+    //      let top = result.pop();
+    //      if (bracketMap[char] !== top) {
+    //        return false;
+    //      }
+    //    }
+    //  }
   //  end method 2
+  /*====================================================*/
+
   return result.length === 0;
 }
 // Test cases and Answer
@@ -87,11 +123,14 @@ console.log(isValid("")); // true (empty string is considered valid)
 console.log(isValid("{[()]}")); // true
 console.log(isValid("{[(])}")); // false
 console.log(isValid("{[(")); // false (unfinished brackets)
-console.log(isValid("{[()]}{")); // false (extra opening bracket at the end)           
+console.log(isValid("{[()]}{")); // false (extra opening bracket at the end)   
+
+
 </div>
       </div>
     </div>
   </div>
+
   <div class="accordion-item">
     <h2 class="accordion-header">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -103,7 +142,12 @@ console.log(isValid("{[()]}{")); // false (extra opening bracket at the end)
 	 <div id="editor2">
 let dataMixArr = [1, 2, [3, 4, [5, 6, 7, [8, 9, 10, ], 11, ], 12], ];
 let flatArr = dataMixArr.flat(Infinity);
-console.log(flatArr); //   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+console.log(flatArr); 
+// Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+
+//Method 1
 function customFlat(dataMixArr, depth = 1) {
   let result = [];
   dataMixArr.forEach((ar) => {
@@ -115,13 +159,48 @@ function customFlat(dataMixArr, depth = 1) {
   });
   return result;
 }
-console.log(customFlat(dataMixArr, 2)); //    [1, 2, 3, 4, 5, 6, 7, [8, 9, 10], 11, 12]
-console.log(customFlat(dataMixArr, 3)); //    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+console.log(customFlat(dataMixArr, 2)); 
+// Output: [1, 2, 3, 4, 5, 6, 7, [8, 9, 10], 11, 12]
+
+console.log(customFlat(dataMixArr, 3)); 
+// Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+
+
+//Method 2
+let dataMixArr = [1, 2, [3, 4, [5, 6, 7, [8, 9, 10], 11], 12]];
+
+let result = [];
+
+function customFlat(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    if (Array.isArray(arr[i])) {
+      customFlat(arr[i]); // recursive call
+    } else {
+      result.push(arr[i]);
+    }
+  }
+}
+
+customFlat(dataMixArr);
+console.log(result);
+
+//Method 3
+function customFlat(arr, result = []) {
+  for (let item of arr) {
+    Array.isArray(item)
+      ? customFlat(item, result)
+      : result.push(item);
+  }
+  return result;
+}
+
+console.log(customFlat(dataMixArr));
+
 </div>
       </div>
     </div>
   </div>
-
 
   <div class="accordion-item">
     <h2 class="accordion-header">
@@ -138,61 +217,89 @@ console.log(customFlat(dataMixArr, 3)); //    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
 let arrayData = [1, 2, 3, 4, 5];
 // MAP METHOD
 let starAllMap = arrayData.map(item => '*');
-console.log(starAllMap); // Output:  ["*", "*", "*", "*", "*"]
+console.log(starAllMap); 
+// Output:  ["*", "*", "*", "*", "*"]
+
 let starRepeatMap = arrayData.map(item => '*'.repeat(item));
-console.log(starRepeatMap); // Output: ["*", "**", "***", "****", "*****"]
+console.log(starRepeatMap); 
+// Output: ["*", "**", "***", "****", "*****"]
+
 let starConditionMap = arrayData.map(ele => ele > 2 ? '*' : ele);
-console.log(starConditionMap); // Output: [1, 2, "*", "*", "*"]
+console.log(starConditionMap); 
+// Output: [1, 2, "*", "*", "*"]
+
 let starConMapRepeat = arrayData.map(item => item > 3 ? '*'.repeat(item) : item);
-console.log(starConMapRepeat); // Output: [1, 2, 3, "****", "*****"]
+console.log(starConMapRepeat); 
+// Output: [1, 2, 3, "****", "*****"]
+
 let squaresMap = arrayData.map(num => num * num);
-console.log(squaresMap); // Output: [1, 4, 9, 16, 25]
+console.log(squaresMap); 
+// Output: [1, 4, 9, 16, 25]
+
 // FOR METHOD
 let starFor = [];
 starFor.push(arrayData[0], arrayData[1]);
 for (let i = 2; i < arrayData.length; i++) {
   starFor.push('*');
 }
-console.log(starFor); // Output: [1, 2, "*", "*", "*"]
+console.log(starFor); /
+/ Output: [1, 2, "*", "*", "*"]
+
 let starRepeatFor = [];
 for (let i = 0; i < arrayData.length; i++) {
   starRepeatFor.push('*'.repeat(arrayData[i]));
 }
-console.log(starRepeatFor); // Output: ["*", "**", "***", "****", "*****"]
+console.log(starRepeatFor); 
+// Output: ["*", "**", "***", "****", "*****"]
+
 let squaresFor = [];
 for (let i = 0; i < arrayData.length; i++) {
   squaresFor.push(arrayData[i] * arrayData[i]);
 }
-console.log(squaresFor); // Output: [1, 4, 9, 16, 25]
+console.log(squaresFor); 
+// Output: [1, 4, 9, 16, 25]
+
 // FILTER METHOD
 let evenFilter = arrayData.filter((item) => {
   return item % 2 === 0;
 });
-console.log(evenFilter); // [2, 4]
+console.log(evenFilter); 
+// Output: [2, 4]
+
 let oddFilter = arrayData.filter((item) => {
   return item % 2 !== 0;
 });
-console.log(oddFilter); // [1, 3, 5]
+console.log(oddFilter); 
+// Output: [1, 3, 5]
+
 // REDUCE METHOD
 let maxReduceFun = (arr) => {
   return arr.reduce((pre, cur) => {
     return pre > cur ? pre : cur;
   });
 };
-console.log(maxReduceFun(arrayData)); //5
+console.log(maxReduceFun(arrayData)); 
+// Output: 5
+
 let minReduceFun = (arr) => {
   return arr.reduce((pre, cur) => {
     return pre < cur ? pre : cur;
   });
 };
-console.log(minReduceFun(arrayData)); //1
+console.log(minReduceFun(arrayData)); 
+// Output: 1
+
 let sumReduceArr = (arr) => {
   return arr.reduce((pre, cur) => {
     return pre + cur;
   });
 };
-console.log(sumReduceArr(arrayData)); // 15
+console.log(sumReduceArr(arrayData)); 
+// Output: 15
+
 /*====================================================*/
+// Start method 1
+
 let targetSum = 7;
 
 function findPairs(arrayData, targetSum) {
@@ -207,7 +314,36 @@ function findPairs(arrayData, targetSum) {
   }
   return pairs;
 }
-console.log(findPairs(arrayData, targetSum)); // Output: [[3, 4], [2, 5]]
+console.log(findPairs(arrayData, targetSum)); 
+// Output: [[3, 4], [2, 5]]
+
+// end method 1
+/*====================================================*/
+// Start method 2
+
+let arrayData = [1, 2, 3, 4, 5];
+let targetSum = 7;
+
+function findPairs(arr, target) {
+  let pairs = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === target) {
+        pairs.push([arr[i], arr[j]]);
+      }
+    }
+  }
+
+  return pairs;
+}
+
+console.log(findPairs(arrayData, targetSum)); 
+// Output: [[3, 4], [2, 5]]
+
+// end method 2
+
+
       </div>  
       </div>
     </div>
@@ -226,9 +362,13 @@ find the missing number from lowest value to highest value.
         <div id="editor4">
 let dataNew = [1, 2, 8, 2, 9, 8];
 let newDataNow = [...new Set(dataNew)];
-console.log(newDataNow); //   [1, 2, 8, 9]
+console.log(newDataNow); 
+// Output: [1, 2, 8, 9]
+
 let duplicates = dataNew.filter((ele, index, arr) => arr.indexOf(ele) !== index);
-console.log(duplicates); //   [2, 8]
+console.log(duplicates); 
+// Output: [2, 8]
+
 const largestValue = (arr) => {
   firstLargestValue = Math.max(...arr);
   index = arr.indexOf(firstLargestValue); //here we have find largest Number 9 
@@ -236,8 +376,11 @@ const largestValue = (arr) => {
   secondLargestValue = Math.max(...arr);
   return (secondLargestValue); // we have got second largest value 8
 };
-console.log(largestValue(dataNew)); // 8 //second largest number
-console.log(dataNew); // [1, 2, 8, 2, 8] // 9 number delete thai jase
+console.log(largestValue(dataNew)); 
+// Output: 8 //second largest number
+
+console.log(dataNew); 
+// Output: [1, 2, 8, 2, 8] // 9 number delete thai jase
 /*====================================================*/
 const missArray = [];
 const missingValue = (arr) => {
@@ -250,7 +393,8 @@ const missingValue = (arr) => {
   }
   return missArray;
 };
-console.log(missingValue(dataNew)); // [3, 4, 5, 6, 7]
+console.log(missingValue(dataNew)); 
+// Output: [3, 4, 5, 6, 7]
 /*====================================================*/
 //How to separate number and string from mix Array.
 let data = [1, 2, "a", 4, "b", "c", "d", 3];
@@ -263,15 +407,19 @@ data.forEach((item) => {
     number.push(item);
   }
 });
-console.log(number); // [1, 2, 4, 3]
-console.log(string); // ["a", "b", "c", "d"]
+console.log(number); 
+// Output: [1, 2, 4, 3]
+console.log(string); 
+// Output: ["a", "b", "c", "d"]
 /*====================================================*/
 // Example of shallow copy and Deep Copy see the New.js file explain in detail way
+
+
+
       </div>  
       </div>
     </div>
   </div>
-
 
   <div class="accordion-item">
     <h2 class="accordion-header">
@@ -304,16 +452,26 @@ console.log(string); // ["a", "b", "c", "d"]
    return result.length === 0;
  }
  // Test cases and Answer
- console.log(isValid("()")); // true
- console.log(isValid("()[]{}")); // true
- console.log(isValid("(]")); // false
- console.log(isValid("([)]")); // false
- console.log(isValid("{[]}")); // true
- console.log(isValid("")); // true (empty string is considered valid)
- console.log(isValid("{[()]}")); // true
- console.log(isValid("{[(])}")); // false
- console.log(isValid("{[(")); // false (unfinished brackets)
- console.log(isValid("{[()]}{")); // false (extra opening bracket at the end)
+ console.log(isValid("()")); 
+// Output: true
+ console.log(isValid("()[]{}")); 
+// Output: true
+ console.log(isValid("(]")); 
+// Output: false
+ console.log(isValid("([)]")); 
+// Output: false
+ console.log(isValid("{[]}")); 
+// Output: true
+ console.log(isValid("")); 
+// Output: true (empty string is considered valid)
+ console.log(isValid("{[()]}")); 
+// Output: true
+ console.log(isValid("{[(])}")); 
+// Output: false
+ console.log(isValid("{[(")); 
+// Output: false (unfinished brackets)
+ console.log(isValid("{[()]}{")); 
+// Output: false (extra opening bracket at the end)
  /*====================================================
  // Que 2: 
  ====================================================*/
@@ -333,8 +491,10 @@ console.log(string); // ["a", "b", "c", "d"]
  // Modify shallow copy
  shallowCopy.details.city = 'Ahmedabad';
  // Both objects reflect the change
- console.log(original.details.city); // Output: 'Ahmedabad'
- console.log(shallowCopy.details.city); // Output: 'Ahmedabad'
+ console.log(original.details.city); 
+// Output: 'Ahmedabad'
+ console.log(shallowCopy.details.city); 
+// Output: 'Ahmedabad'
  /*====================================================*/
  // Deep Copy Example:
  // A deep copy creates a new object with all nested objects also copied, 
@@ -351,8 +511,10 @@ console.log(string); // ["a", "b", "c", "d"]
  // Modify deep copy
  deepCopy.details.city = 'Ahmedabad';
  // Only deep copy reflects the change
- console.log(originalTwo.details.city); // Output: 'Vadodara'
- console.log(deepCopy.details.city); // Output: 'Ahmedabad'
+ console.log(originalTwo.details.city); 
+// Output: 'Vadodara'
+ console.log(deepCopy.details.city); 
+// Output: 'Ahmedabad'
  // Explanation:
  // Shallow Copy: The spread operator { ...original } creates a new object, but nested objects are still references to the original. 
  // Hence, changing details.city in the shallow copy affects the original object.
@@ -366,29 +528,32 @@ console.log(string); // ["a", "b", "c", "d"]
  // 4. Using StructuredClone (Modern JavaScript)
  // 5. Using jQuery
  // 6. Custom Utility Libraries
- /*====================================================*/         
+ /*====================================================*/       
+ 
+ 
+
       </div>  
       </div>
     </div>
   </div>
 
-
-
   <div class="accordion-item">
     <h2 class="accordion-header">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourb" aria-expanded="false" aria-controls="collapseFourb">
-        QUE 04 b: 1. find total word count in the string.  <br>
-        2. shorten string and add ... in last.  <br>
-        3. reverse the string with word.  <br>
+<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourb" aria-expanded="false" aria-controls="collapseFourb">
+QUE 04 b: 1. find total word count in the string.  <br>
+2. shorten string and add ... in last.  <br>
+3. reverse the string with word.  <br>
 4. find total vowel in the string.  <br>
- 5. remove the duplicate and sort the string.  <br>
- 6. word is vowel or not.
+5. remove the duplicate and sort the string.  <br>
+6. word is vowel or not. <br>
+7. first Letter of str make capital. <br>
+8. remove s from string and add s at the end. <br>
       </button>
     </h2>
     <div id="collapseFourb" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         <div id="editor4b">
-  const strData = "sun rises in the east";
+const strData = "sun rises in the east";
  const obj = {};
  for (let index of strData) {
    if (obj[index]) {
@@ -397,7 +562,8 @@ console.log(string); // ["a", "b", "c", "d"]
      obj[index] = 1;
    }
  }
- console.log(obj); // Output: { : 4, a: 1, e: 3, h: 1, i: 2, n: 2, r: 1, s: 4, t: 2, u: 1}
+ console.log(obj); 
+// Output: { : 4, a: 1, e: 3, h: 1, i: 2, n: 2, r: 1, s: 4, t: 2, u: 1}
  function countCharacters(str) {
    let count = {};
    for (let x of str) {
@@ -410,7 +576,8 @@ console.log(string); // ["a", "b", "c", "d"]
    return count;
  }
  const text = 'subscribe to procoder!!';
- console.log(countCharacters(text)); // { : 2, !: 2, b: 2, c: 2, d: 1, e: 2, i: 1, o: 3, p: 1, r: 3, s: 2, t: 1, u: 1}
+ console.log(countCharacters(text)); 
+// Output: { : 2, !: 2, b: 2, c: 2, d: 1, e: 2, i: 1, o: 3, p: 1, r: 3, s: 2, t: 1, u: 1}
  function nameShort(name, maxLength) {
    if (name.length > maxLength) {
      return name.substring(0, maxLength) + "...";
@@ -418,18 +585,65 @@ console.log(string); // ["a", "b", "c", "d"]
    return name;
  }
  let newName = nameShort(strData, 9);
- console.log(newName); // Output: "sun rises..."
+ console.log(newName); 
+// Output: "sun rises..."
 
- // using function
+ // using function and reverse inbuild method
  function reverseWords(strData) {
    return strData.split(' ').map(word => word.split('').reverse().join('')).join(' ');
  }
  let newData = reverseWords(strData);
- console.log(newData); // Output: "nuS sesir ni eht tsae"
+ console.log(newData); 
+// Output: "nuS sesir ni eht tsae"
 
- // using fat arrow function
+  // using fat arrow function and reverse inbuild method
  let reverse = strData.split(' ').map(word => word.split('').reverse().join('')).join(' ');
- console.log(reverse); // Output: "nuS sesir ni eht tsae"
+ console.log(reverse); 
+// Output: "nuS sesir ni eht tsae"
+
+// without reverse method
+//Method 1 — Using for loop
+const strData = "sun rises in the east";
+let reversed = "";
+for (let i = strData.length - 1; i >= 0; i--) {
+  reversed += strData[i];
+}
+console.log(reversed);
+
+//Method 2 — Using for...of loop (Prepend method)
+const strData = "sun rises in the east";
+let reversed = "";
+for (let char of strData) {
+  reversed = char + reversed;
+}
+console.log(reversed);
+
+//Method 3 — Using while loop
+const strData = "sun rises in the east";
+let i = strData.length - 1;
+let reversed = "";
+while (i >= 0) {
+  reversed += strData[i];
+  i--;
+}
+console.log(reversed);
+
+//Method 4 - Using Recursion
+function reverseString(str) {
+  if (str === "") {
+    return "";
+  }
+  return reverseString(str.substr(1)) + str[0];
+}
+const strData = "sun rises in the east";
+console.log(reverseString(strData));
+
+//Method 5 - Using Reduce method
+const strData = "sun rises in the east";
+const reversed = strData.split("").reduce((acc, char) => {
+  return char + acc;
+}, "");
+console.log(reversed);
 
  const vowels = ["a", "e", "i", "o", "u"];
  const countVowel = (str) => {
@@ -441,24 +655,54 @@ console.log(string); // ["a", "b", "c", "d"]
    }
    return count;
  };
- console.log(countVowel(strData)); // Output: 7
+ console.log(countVowel(strData)); 
+// Output: 7
  // sort data and remove duplicate
  const sortData = [...new Set(strData.split(""))];
- console.log(sortData); //Output: ["s", "u", "n", " ", "r", "i", "e", "t", "h", "a"]
+ console.log(sortData); 
+// Output: ["s", "u", "n", " ", "r", "i", "e", "t", "h", "a"]
  /*====================================================*/
  var string = "e";
  string = string.toLocaleLowerCase();
  if (string == "a" || string == "e" || string == "i" || string == "o" || string == "u") {
    console.log(`${string} is vowel.`);
  } else {
-   console.log(`${string} is not vowel.`); // Output: "e is vowel."
- }        
+   console.log(`${string} is not vowel.`); 
+// Output: "e is vowel."
+ }      
+
+/*====================================================*/
+
+ // using fat arrow function caps first letter of str
+const capFirstLetter = strData.split(" ").map(word => word[0].toUpperCase() + word.slice(1)).join(" ")
+console.log(capFirstLetter); 
+// Output: "Sun Rises In The East"
+
+/*====================================================*/
+
+// remove s from string and add s at the end
+const strData = "sun rises in the east";
+
+let result = "";
+let sCount = 0;
+for (let i = 0; i < strData.length; i++) {
+  if (strData[i] === "s") {
+    sCount++;
+  } else {
+    result += strData[i];
+  }
+}
+result += "s".repeat(sCount);
+console.log(result);
+// Output: un rie in the eatssss
+
+/*====================================================*/
+
+
       </div>  
       </div>
     </div>
   </div>
-
-
 
   <div class="accordion-item">
     <h2 class="accordion-header">
@@ -472,15 +716,19 @@ console.log(string); // ["a", "b", "c", "d"]
       <div class="accordion-body">
         <div id="editor5">
  const inputNum = 5;
- fact = 1;
+ let fact = 1;
  if (inputNum < 0) {
    console.log(`factorial of ${inputNum} is not possible`);
  } else {
    for (let i = 1; i <= inputNum; i++) {
      fact = fact * i;
    }
-   console.log(`factorial of ${inputNum} is ${fact}`); // output: "factorial of 5 is 120"
- }         
+   console.log(`factorial of ${inputNum} is ${fact}`); 
+// Output: "factorial of 5 is 120"
+ }    
+ 
+ 
+
       </div>  
       </div>
     </div>
@@ -504,8 +752,10 @@ console.log(string); // ["a", "b", "c", "d"]
      };
    }
  }
- console.log(sum(1, 2)); //3
- console.log(sum(1)(2)); //3
+ console.log(sum(1, 2)); 
+// Output: 3
+ console.log(sum(1)(2)); 
+// Output: 3
  //function curring or closure
  function sum(a) {
    return function(b) {
@@ -526,10 +776,14 @@ console.log(string); // ["a", "b", "c", "d"]
    };
    return innerSum;
  }
- console.log(sum(1, 2, 3)()); // 6
- console.log(sum(1)(2)(3)()); // 6
- console.log(sum(4)(5)()); // 9
- console.log(sum(1)(2)(3)(4)()); // 10
+ console.log(sum(1, 2, 3)()); 
+// Output: 6
+ console.log(sum(1)(2)(3)()); 
+// Output: 6
+ console.log(sum(4)(5)()); 
+// Output: 9
+ console.log(sum(1)(2)(3)(4)()); 
+// Output: 10
  /*====================================================*/
  let count = 0;
  const nums = [0, 1, 2, 3];
@@ -538,16 +792,21 @@ console.log(string); // ["a", "b", "c", "d"]
      count = count + 1;
    }
  });
- console.log(count); //3
+ console.log(count); 
+// Output: 3
  /*====================================================*/
  const arr = [2, 3, 4, 5];
  let newwe = arr.slice(0, 1);
- console.log(arr); //[2, 3, 4, 5]
- console.log(arr.slice(0, 1)); //[2]
- console.log(newwe); //[2]
+ console.log(arr); 
+// Output: [2, 3, 4, 5]
+ console.log(arr.slice(0, 1)); 
+// Output: [2]
+ console.log(newwe); 
+// Output: [2]
  arr.splice(0, 1);
  arr.unshift(8);
- console.log(arr); //[8, 3, 4, 5]
+ console.log(arr); 
+// Output: [8, 3, 4, 5]
  /*====================================================*/
  const obj = {
    a: 1,
@@ -556,28 +815,45 @@ console.log(string); // ["a", "b", "c", "d"]
    "a": 6,
    b: 7
  }
- console.log(obj) // {a: 6, b: 7, c: 3}
+ console.log(obj); 
+// Output: {a: 6, b: 7, c: 3}
  /*====================================================*/
- console.log(!"hello"); //false
- console.log(+false); //0
- console.log(-true); //-1
- console.log(-false); //0
- console.log(+true); //1
- console.log("" == false); // true
- console.log("" === false); //false
- console.log(NaN == NaN); //false
- console.log(NaN === NaN); //false
- console.log(0 / 0); // NaN
- console.log(1 + undefined); // NaN
- console.log(typeof typeof 1000); // "string"
+ console.log(!"hello"); 
+// Output: false
+ console.log(+false); 
+// Output: 0
+ console.log(-true); 
+// Output: -1
+ console.log(-false); 
+// Output: 0
+ console.log(+true); 
+// Output: 1
+ console.log("" == false); 
+// Output: true
+ console.log("" === false); 
+// Output: false
+ console.log(NaN == NaN); 
+// Output: false
+ console.log(NaN === NaN); 
+// Output: false
+ console.log(0 / 0); 
+// Output: NaN
+ console.log(1 + undefined); 
+// Output: NaN
+ console.log(typeof typeof 1000); 
+// Output: "string"
  /*====================================================*/
  const arradd = [3, 4, 5, 6, 7, 8];
  arradd[10] = 100;
- console.log(arradd); //[3, 4, 5, 6, 7, 8, undefined, undefined, undefined, undefined, 100]         
+ console.log(arradd); 
+// Output: [3, 4, 5, 6, 7, 8, undefined, undefined, undefined, undefined, 100]    
+
+
+
       </div>  
       </div>
     </div>
-  </div>
+    </div>  
 
   <div class="accordion-item">
     <h2 class="accordion-header">
@@ -600,13 +876,20 @@ function createFibonacciGenerator() {
   };
 }
 let fibonacciGenerator = createFibonacciGenerator();
-console.log(fibonacciGenerator()); // should print 0
-console.log(fibonacciGenerator()); // should print 1
-console.log(fibonacciGenerator()); // should print 1
-console.log(fibonacciGenerator()); // should print 2
-console.log(fibonacciGenerator()); // should print 3
-console.log(fibonacciGenerator()); // should print 5
-console.log(fibonacciGenerator()); // should print 8
+console.log(fibonacciGenerator()); 
+// Output: should print 0
+console.log(fibonacciGenerator()); 
+// Output: should print 1
+console.log(fibonacciGenerator()); 
+// Output: should print 1
+console.log(fibonacciGenerator()); 
+// Output: should print 2
+console.log(fibonacciGenerator()); 
+// Output: should print 3
+console.log(fibonacciGenerator()); 
+// Output: should print 5
+console.log(fibonacciGenerator()); 
+// Output: should print 8
 // another way
 const numFib = 50;
 let x = 0;
@@ -619,6 +902,9 @@ while (fn < numFib) {
   x = y;
   y = fn;
 }          
+
+
+
       </div>  
       </div>
     </div>
@@ -673,11 +959,13 @@ while (fn < numFib) {
  const filterItem = inputArray.filter((item) => {
    return item.age > 30;
  });
- console.log(filterItem); // [{age: 42, id: 3, name: "aniruddh"}, {age: 32, id: 1, name: "kadia"}, {age: 62, id: 3, name: "ramesh"}]
+ console.log(filterItem); 
+// Output: [{age: 42, id: 3, name: "aniruddh"}, {age: 32, id: 1, name: "kadia"}, {age: 62, id: 3, name: "ramesh"}]
  const findItem = inputArray.find((item) => {
    return item.age > 30;
  });
- console.log(findItem); // [{age: 42, id: 3, name: "aniruddh"}]
+ console.log(findItem); 
+// Output: [{age: 42, id: 3, name: "aniruddh"}]
  //====================================================
  // make value in uppercase. 
  const inputArray = [{
@@ -749,7 +1037,8 @@ while (fn < numFib) {
    return inner(); // Call inner() and return its result
  }
  let sum = outerfun();
- console.log(sum); // This will log 25
+ console.log(sum); 
+// Output: 25
  //====================================================
  //promises output base question
  setTimeout(() => {
@@ -782,7 +1071,10 @@ while (fn < numFib) {
  // When you call greetFunc, this inside the greet method is not bound to the person object anymore. Instead, it refers to the global context (or undefined in strict mode), which doesn't have name and age properties. As a result, this.name and this.age are undefined.
  // Explanation of the Fix
  // bind Method: bind(person) creates a new function with this permanently set to the person object, 
- // ensuring that the method works as intended when called outside the context of the person object.         
+ // ensuring that the method works as intended when called outside the context of the person object.  
+ 
+ 
+
       </div>  
       </div>
     </div>
@@ -808,13 +1100,20 @@ function isPrime(num) {
   return true; // If no divisors, it's a prime number
 }
 // Example usage:
-console.log(isPrime(11)); // true
-console.log(isPrime(15)); // false
-console.log(isPrime(2)); // true          
+console.log(isPrime(11)); 
+// Output: true
+console.log(isPrime(15)); 
+// Output: false
+console.log(isPrime(2)); 
+// Output: true  
+
+
+
       </div>  
       </div>
     </div>
   </div>
+
 
   <div class="accordion-item">
     <h2 class="accordion-header">
@@ -861,14 +1160,22 @@ function some(array, n, conditionFunction) {
   }
   return false;
 }
-console.log(some([2, 4, 6], 3, isEven)); // should print true
-console.log(some([2, 3, 4], 3, isEven)); // should print false
-console.log(some([2, 3, 11], 4, isPrime)); // should print false
-console.log(some([2, 3, 5, 9], 3, isPrime)); // should print true          
+console.log(some([2, 4, 6], 3, isEven)); 
+// Output: true
+console.log(some([2, 3, 4], 3, isEven)); 
+// Output: false
+console.log(some([2, 3, 11], 4, isPrime)); 
+// Output: false
+console.log(some([2, 3, 5, 9], 3, isPrime)); 
+// Output: true     
+
+
+
       </div>  
       </div>
     </div>
   </div>
+
 
 
   <!-- start section 10 -->
@@ -912,13 +1219,20 @@ function QuestionsMarks(str) {
   return res; // Return true if at least one valid pair was found
 }
 // Test the function
-console.log(QuestionsMarks("aa6?9")); // Example test   // false
-console.log(QuestionsMarks("acc?7??sss?3rr1??????5")); // No pairs adding to 10   // true
-console.log(QuestionsMarks("1?5?9??1?")); // Valid pair with enough question marks  // false          
+console.log(QuestionsMarks("aa6?9")); 
+// Output: false
+console.log(QuestionsMarks("acc?7??sss?3rr1??????5")); 
+// Output: true
+console.log(QuestionsMarks("1?5?9??1?")); 
+// Output: false 
+
+
+
       </div>  
       </div>
     </div>
   </div>
+
 
   <div class="accordion-item">
     <h2 class="accordion-header">
@@ -944,9 +1258,15 @@ console.log(QuestionsMarks("1?5?9??1?")); // Valid pair with enough question mar
    return [];
  }
  // Test cases
- console.log(twoSum([2, 7, 11, 15], 9)); // Output: [0, 1]
- console.log(twoSum([3, 2, 4], 6)); // Output: [1, 2]
- console.log(twoSum([3, 3], 6)); // Output: [0, 1]         
+ console.log(twoSum([2, 7, 11, 15], 9)); 
+// Output: [0, 1]
+ console.log(twoSum([3, 2, 4], 6)); 
+// Output: [1, 2]
+ console.log(twoSum([3, 3], 6)); 
+// Output: [0, 1]    
+
+
+
       </div>  
       </div>
     </div>
@@ -968,26 +1288,38 @@ console.log(QuestionsMarks("1?5?9??1?")); // Valid pair with enough question mar
  console.log(doubled);
  // output: [2, 4, 6, 8, 10]
  for (let i = 0; i < numbers.length; i++) {
-   console.log(numbers[i]); // output: we get array
+   console.log(numbers[i]); 
+// output: we get array
  }
  for (let index in numbers) {
-   console.log(numbers[index]); // output: we get array
+   console.log(numbers[index]); 
+// output: we get array
  }
  for (let num of numbers) {
-   console.log(num); // output: we get array
+   console.log(num); 
+// output: we get array
  }
  const foundArray = numbers.find(num => num > 2);
- console.log(foundArray); // output: 3
+ console.log(foundArray); 
+// output: 3
  const evens = numbers.filter(num => num % 2 === 0);
- console.log(evens); // output: [2, 4]
+ console.log(evens); 
+// output: [2, 4]
  const index = numbers.indexOf(2);
- console.log(index); //output: 1
+ console.log(index); 
+//output: 1
  const hasFive = numbers.includes(2);
- console.log(hasFive); //output: true
+ console.log(hasFive); 
+//output: true
  const lastIndex = numbers.lastIndexOf(2);
- console.log(lastIndex); //output: 1
+ console.log(lastIndex); 
+//output: 1
  const firstEvenIndex = numbers.findIndex(num => num % 2 === 0);
- console.log(firstEvenIndex); // output: 1         
+ console.log(firstEvenIndex); 
+// output: 1    
+
+
+
       </div>  
       </div>
     </div>
@@ -996,7 +1328,7 @@ console.log(QuestionsMarks("1?5?9??1?")); // Valid pair with enough question mar
   <div class="accordion-item">
     <h2 class="accordion-header">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourteen" aria-expanded="false" aria-controls="collapseFourteen">
-        QUE 14:  All the method we can  use in Array.
+        QUE 14:  All the method we can  use in Object.
       </button>
     </h2>
     <div id="collapseFourteen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -1015,43 +1347,58 @@ console.log(QuestionsMarks("1?5?9??1?")); // Valid pair with enough question mar
  /* we got object */
  const keys = Object.keys(user);
  for (let i = 0; i < keys.length; i++) {
-   console.log(`${keys[i]}: ${user[keys[i]]}`);
+   console.log(`${keys[i]}: ${user[keys[i]]}`); 
+// Output: we got object
  }
  /* we got object */
  for (let key in user) {
-   console.log(`${key}: ${user[key]}`);
+   console.log(`${key}: ${user[key]}`); 
+// Output: we got object
  }
  /* we got object */
  for (let [key, value] of Object.entries(user)) {
-   console.log(`${key}: ${value}`);
+   console.log(`${key}: ${value}`); 
+// Output: we got object
  }
  /* we got object */
  const mapped = Object.entries(user).map(([key, value]) => `${key}: ${value}`);
- console.log(mapped);
- /* ["id: 1", "name: Alice", "age: 25", "city: Wonderland", "hobbies: reading,gaming,coding"] */
+ console.log(mapped); 
+// Output: ["id: 1", "name: Alice", "age: 25", "city: Wonderland", "hobbies: reading,gaming,coding"]
  const foundObj = Object.entries(user).find(([key, value]) => key === "city");
- console.log(foundObj); // ["city", "Wonderland"]
+ console.log(foundObj); 
+// Output: ["city", "Wonderland"]
  const filtered = Object.entries(user).filter(([key, value]) => typeof value === "string");
- console.log(filtered); // [["name", "Alice"], ["city", "Wonderland"]]
+ console.log(filtered); 
+// Output: [["name", "Alice"], ["city", "Wonderland"]]
  const keyIndex = Object.keys(user).indexOf("age");
- console.log(keyIndex); // 2
+ console.log(keyIndex); 
+// Output: 2
  const valueIndex = Object.values(user).indexOf("Alice");
- console.log(valueIndex); // 1
+ console.log(valueIndex); 
+// Output: 1
  const hasAlice = Object.values(user).includes("Alice");
- console.log(hasAlice); // true
+ console.log(hasAlice); 
+// Output: true
  const findIndex = Object.entries(user).findIndex(([key, value]) => key === "hobbies");
- console.log(findIndex); // 4
+ console.log(findIndex); 
+// Output: 4
  const sortedKeys = Object.keys(user).sort();
- console.log(sortedKeys); // ["age", "city", "hobbies", "id", "name"]
+ console.log(sortedKeys); 
+// Output: ["age", "city", "hobbies", "id", "name"]
  const sortedEntries = Object.entries(user).sort(([keyA], [keyB]) => keyA.localeCompare(keyB));
- console.log(sortedEntries);
- /* [["age", 25], ["city", "Wonderland"], ["hobbies", ["reading", "gaming", "coding"]], ["id", 1], ["name", "Alice"]]*/
+ console.log(sortedEntries); 
+// Output: [["age", 25], ["city", "Wonderland"], ["hobbies", ["reading", "gaming", "coding"]], ["id", 1], ["name", "Alice"]]*/
  const reduced = Object.entries(user).reduce((acc, [key, value]) => {
    return `${acc}${key}: ${value}, `;
  }, "");
- console.log(reduced); // "id: 1, name: Alice, age: 25, city: Wonderland, hobbies: reading,gaming,coding, "
+ console.log(reduced); 
+// Output: "id: 1, name: Alice, age: 25, city: Wonderland, hobbies: reading,gaming,coding, "
  const flattenedHobbies = user.hobbies.flat();
- console.log(flattenedHobbies); // ["reading", "gaming", "coding"]
+ console.log(flattenedHobbies); 
+// Output: ["reading", "gaming", "coding"]
+
+
+
       </div>  
       </div>
     </div>
@@ -1068,12 +1415,18 @@ console.log(QuestionsMarks("1?5?9??1?")); // Valid pair with enough question mar
         <div id="editor15">
  const numArr = [1, 2, 3];
  const res = numArr.map(ele => ele * 2);
- console.log("res", res); // [2, 4, 6]  // return new Array
- console.log("numArr", numArr); // [1, 2, 3]  // Not change value (unmutable)
+ console.log("res", res); 
+// Output: [2, 4, 6]  // return new Array
+ console.log("numArr", numArr); 
+// Output: [1, 2, 3]  // Not change value (unmutable)
  const numArr2 = [1, 2, 3];
  const res2 = numArr2.forEach((val, i, arr) => (arr[i] = val * 2));
- console.log("res2", res2); // undefined // forEach not return anything
- console.log("numArr2", numArr2); // [2, 4, 6]  // change value (mutable)         
+ console.log("res2", res2); 
+// Output: undefined // forEach not return anything
+ console.log("numArr2", numArr2); 
+// Output: [2, 4, 6]  // change value (mutable)    
+
+
       </div>  
       </div>
     </div>
@@ -1090,8 +1443,10 @@ console.log(QuestionsMarks("1?5?9??1?")); // Valid pair with enough question mar
         <div id="editor16">
  var x = "7"; //string
  var y = 7; // value
- console.log(x == y); //true // == check only value
- console.log(x === y); //false // === check both value and type
+ console.log(x == y); 
+// Output: true // == check only value
+ console.log(x === y); 
+// Output: false // === check both value and type
  let a = {
    name: "ani"
  };
@@ -1099,8 +1454,13 @@ console.log(QuestionsMarks("1?5?9??1?")); // Valid pair with enough question mar
    name: "ani"
  };
  // "===" the comparison is based on reference, not on the actual content of the objects.
- console.log(a === b); // false // == both reference are store in different memory location
- console.log(a.name === b.name); //true
+ console.log(a === b); 
+// Output: false // == both reference are store in different memory location
+ console.log(a.name === b.name); 
+// Output: true
+
+
+
       </div>  
       </div>
     </div>
@@ -1126,10 +1486,14 @@ console.log(QuestionsMarks("1?5?9??1?")); // Valid pair with enough question mar
       console.log(i)
     }
   }
-  </div>  
+
+
+
+        </div>  
       </div>
     </div>
   </div>
+
 
   <div class="accordion-item">
     <h2 class="accordion-header">
@@ -1147,7 +1511,11 @@ const areArraysEqual = (arr1, arr2) => {
   return arr1.sort().every((value, index) => value === arr2.sort()[index]);
 };
 let result = areArraysEqual(array1, array2);
-console.log(result); // true
+console.log(result); 
+// Output: true
+
+
+
       </div>  
       </div>
     </div>
@@ -1160,26 +1528,33 @@ console.log(result); // true
 parseInt is used to convert 'string' to 'number' 
       </button>
     </h2>
-    <div id="collapseNineteen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div id="collapseNineteen" class="accordion-collapse collapse" data-bs-parent="#accordionExample" >
       <div class="accordion-body">
         <div id="editor19">
 // Reverse Array
 let revArr = [1, 2, 3];
 revArr.reverse();
-console.log(revArr); // Output: [3, 2, 1]
+console.log(revArr); 
+// Output: [3, 2, 1]
 // Reverse Number
 let Num = 123;
 let reversedNumber = parseInt(Num.toString().split('').reverse().join(''));
-console.log(reversedNumber); //321
+console.log(reversedNumber); 
+// Output: 321
 //Reverse whole String
 const stringData = "sun rises in the east";
 const reversedString = stringData.split('').reverse().join('');
-console.log(reversedString); // "tsae eht ni sesir nus"
+console.log(reversedString); 
+// Output: "tsae eht ni sesir nus"
 //Reverse String words
 const reverseWords = (str) => {
   return str.split(' ').map(word => word.split('').reverse().join('')).join(' ');
 };
-console.log(reverseWords(stringData)); //"nus sesir ni eht tsae" 
+console.log(reverseWords(stringData)); 
+// Output: "nus sesir ni eht tsae" 
+
+
+
       </div>  
       </div>
     </div>
@@ -1200,9 +1575,15 @@ console.log(reverseWords(stringData)); //"nus sesir ni eht tsae"
     let oneArr = [...num1, ...num2];
     return [...new Set(oneArr)];
   };
-  console.log(getUnion());
-  console.log(getUnion().sort());
-  console.log(getUnion().sort().reverse());
+  console.log(getUnion()); 
+// Output: [4, 5, 8, 9]
+  console.log(getUnion().sort()); 
+// Output: [4, 5, 8, 9]
+  console.log(getUnion().sort().reverse()); 
+// Output: [9, 8, 5, 4]
+
+
+
       </div>  
       </div>
     </div>
@@ -1226,8 +1607,13 @@ console.log(reverseWords(stringData)); //"nus sesir ni eht tsae"
  let interSec = intOne.filter((curElem) => {
    return intTwo.includes(curElem);
  });
- console.log([...new Set(interSec)]);
-    </div>  
+ console.log([...new Set(interSec)]); 
+// Output: [2, 4, 5, 9] 
+
+
+
+
+      </div>
     </div>
   </div>
 </div>
@@ -1242,14 +1628,22 @@ console.log(reverseWords(stringData)); //"nus sesir ni eht tsae"
     <div class="accordion-body">
       <div id="editor22">
 let x;
-console.log(x); // output: undefined
-console.log(typeof x); // output: "undefined"
+console.log(x); 
+// Output: undefined
+console.log(typeof x); 
+// Output: "undefined"
 let y = null;
-console.log(y); // output: null
-console.log(typeof y); // output: "object"
-console.log(undefined == null); // output: true
+console.log(y); 
+// Output: null
+console.log(typeof y); 
+// Output: "object"
+console.log(undefined == null); 
+// Output: true
 console.log(undefined === null); // output: false
-    </div>  
+
+
+
+      </div>
     </div>
   </div>
 </div>
@@ -1274,7 +1668,11 @@ console.log(undefined === null); // output: false
 (function() {
   window.a = 5; // Or just a = 5; if you don't use "use strict"
 })();
-console.log(a); // 5
+console.log(a); 
+// Output: 5
+
+
+
     </div>  
     </div>
   </div>
@@ -1305,11 +1703,14 @@ const person = {
   }
 };
 // Using the getter
-console.log(person.fullName); // Output: John Doe
+console.log(person.fullName); 
+// Output: John Doe
 // Using the setter
 person.fullName = "Jane Smith";
-console.log(person.firstName); // Output: Jane
-console.log(person.lastName); // Output: Smith
+console.log(person.firstName); 
+// Output: Jane
+console.log(person.lastName); 
+// Output: Smith
 //Example with Object.defineProperty:
 const person = {
   firstName: "John",
@@ -1327,11 +1728,17 @@ Object.defineProperty(person, "fullName", {
   }
 });
 // Using the getter
-console.log(person.fullName); // Output: John Doe
+console.log(person.fullName); 
+// Output: John Doe
 // Using the setter
 person.fullName = "Jane Smith";
-console.log(person.firstName); // Output: Jane
-console.log(person.lastName); // Output: Smith
+console.log(person.firstName); 
+// Output: Jane
+console.log(person.lastName); 
+// Output: Smith
+
+
+
     </div>  
     </div>
   </div>
@@ -1355,18 +1762,21 @@ const greet = function sayHello() {
   console.log("Hello, world!");
 };
 // Invoking the function
-greet(); // Output: Hello, world!
+greet(); 
+// Output: Hello, world!
 //Example of an Anonymous Function Expression:
 const square = function(x) {
   return x * x;
 };
-console.log(square(5)); // Output: 25
+console.log(square(5)); 
+// Output: 25
 //Example of a Named Function Expression:
 const factorial = function fact(n) {
   if (n <= 1) return 1;
   return n * fact(n - 1); // Recursively calls itself
 };
-console.log(factorial(5)); // Output: 120
+console.log(factorial(5)); 
+// Output: 120
 //Use Cases for Function Expressions:
 setTimeout(function() {
   console.log("This runs after 2 seconds");
@@ -1388,7 +1798,11 @@ const operations = [
   }
 ];
 const result = operations.map(op => op(5));
-console.log(result); // Output: [6, 10, 25]
+console.log(result); 
+// Output: [6, 10, 25]
+
+
+
     </div>  
     </div>
   </div>
@@ -1410,19 +1824,22 @@ const users = [
  { name: "David", age: 40, isActive: false }
 ];
  const activeUsers = users.filter(user => user.isActive);
- console.log(activeUsers);
- // Output:
- // [
- //   { name: "Alice", age: 25, isActive: true },
- //   { name: "Charlie", age: 35, isActive: true }
- // ]
+ console.log(activeUsers); 
+// Output:
+// [
+//   { name: "Alice", age: 25, isActive: true },
+//   { name: "Charlie", age: 35, isActive: true }
+// ]
  const usersAbove30 = users.filter(user => user.age > 30);
- console.log(usersAbove30);
- // Output:
- // [
- //   { name: "Charlie", age: 35, isActive: true },
- //   { name: "David", age: 40, isActive: false }
- // ]
+ console.log(usersAbove30); 
+// Output:
+// [
+//   { name: "Charlie", age: 35, isActive: true },
+//   { name: "David", age: 40, isActive: false }
+// ]
+
+
+
     </div>  
     </div>
   </div>
@@ -1446,7 +1863,11 @@ const sumOfSquares = numbers
   .map(num => num * num) // [4, 16]
   // Summing up all the numbers
   .reduce((sum, num) => sum + num, 0); // 20
-console.log(sumOfSquares); // Output: 20
+console.log(sumOfSquares); 
+// Output: 20
+
+
+
     </div>  
     </div>
   </div>
@@ -1468,7 +1889,8 @@ console.log(sumOfSquares); // Output: 20
 const greet = function(name) {
   return `Hello, ${name}!`;
 };
-console.log(greet("Alice")); // Output: Hello, Alice!
+console.log(greet("Alice")); 
+// Output: Hello, Alice!
 /*====================================================*/
 function callWithTwo(callback) {
   return callback(2);
@@ -1476,7 +1898,8 @@ function callWithTwo(callback) {
 const result = callWithTwo(function(num) {
   return num * num;
 });
-console.log(result); // Output: 4
+console.log(result); 
+// Output: 4
 /*====================================================*/
 function createMultiplier(multiplier) {
   return function(number) {
@@ -1484,9 +1907,11 @@ function createMultiplier(multiplier) {
   };
 }
 const double = createMultiplier(2);
-console.log(double(5)); // Output: 10
+console.log(double(5)); 
+// Output: 10
 const triple = createMultiplier(3);
-console.log(triple(5)); // Output: 15
+console.log(triple(5)); 
+// Output: 15
 /*====================================================*/
 const operations = {
   add: function(a, b) {
@@ -1502,14 +1927,21 @@ const operations = {
     return a / b;
   }
 };
-console.log(operations.add(10, 5)); // Output: 15
-console.log(operations.subtract(10, 5)); // Output: 5
-console.log(operations.multiply(10, 5)); // Output: 50
-console.log(operations.divide(10, 5)); // Output: 2
+console.log(operations.add(10, 5)); 
+// Output: 15
+console.log(operations.subtract(10, 5)); 
+// Output: 5
+console.log(operations.multiply(10, 5)); 
+// Output: 50
+console.log(operations.divide(10, 5)); 
+// Output: 2
 /*
 Summary:
 Because functions in JavaScript are first - class, they can be used in versatile and powerful ways, such as callbacks, function factories, or within data structures, enabling a more functional programming style.This concept is fundamental to understanding more advanced topics in JavaScript, such as closures, higher - order functions, and asynchronous programming.
 */
+
+
+
       </div>  
     </div>
   </div>
@@ -1527,13 +1959,16 @@ Because functions in JavaScript are first - class, they can be used in versatile
 const obj = { a: 1, b: 2, c: 3 };
 //Object Keys to Array
 const keysData = Object.keys(obj);
-console.log(keysData); // Output: ["a", "b", "c"]
+console.log(keysData); 
+// Output: ["a", "b", "c"]
 //Object Values to Array
 const valuesData = Object.values(obj);
-console.log(valuesData); // Output: [1, 2, 3]
+console.log(valuesData); 
+// Output: [1, 2, 3]
 //Object Entries to Array
 const entriesData = Object.entries(obj);
-console.log(entriesData); // Output: [["a", 1], ["b", 2], ["c", 3]]
+console.log(entriesData); 
+// Output: [["a", 1], ["b", 2], ["c", 3]]
 //Converting an Object to an Array of Custom Format
 const customArray = Object.keys(obj).map(key => ({
   key,
@@ -1541,6 +1976,9 @@ const customArray = Object.keys(obj).map(key => ({
 }));
 console.log(customArray);
 // Output: [{ key: "a", value: 1 }, { key: "b", value: 2 }, { key: "c", value: 3 }]
+
+
+
     </div>  
     </div>
   </div>
@@ -1562,11 +2000,13 @@ console.log(customArray);
   //Operations with undefined
   let value = undefined + 1; // NaN
   let sum = 'abc' / 2 ;  // NaN
+
+
+
     </div>  
     </div>
   </div>
 </div>
-
 <!-- end section 10 -->
 
 
@@ -1605,11 +2045,17 @@ function quickSort(array) {
   return [...quickSort(left), pivot, ...quickSort(right)];
 }
 let sortedData = quickSort(data);
-console.log(sortedData); // [3, 10, 11, 18, 22, 32]
+console.log(sortedData); 
+// Output: [3, 10, 11, 18, 22, 32]
+
+
+
 </div>  
     </div>
   </div>
 </div>
+
+
 <div class="accordion-item">
   <h2 class="accordion-header">
     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirtytwo" aria-expanded="false" aria-controls="collapseThirtytwo">
@@ -1625,10 +2071,14 @@ helloElement.addEventListener('click', () => {
   helloElement.textContent = user[0]; // Set the text to the first element in the array
   user.push(user.shift()); // Move the first element to the end of the array
 });
+
+
+
     </div>  
     </div>
   </div>
 </div>
+
 <div class="accordion-item">
   <h2 class="accordion-header">
     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirtythree" aria-expanded="false" aria-controls="collapseThirtythree">
@@ -1648,10 +2098,14 @@ fetch('https://jsonplaceholder.typicode.com/photos?_limit=20')
       centerdiv.appendChild(img);
     });
   });
+
+
+
     </div>  
     </div>
   </div>
 </div>
+
 <div class="accordion-item">
   <h2 class="accordion-header">
     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirtyfour" aria-expanded="false" aria-controls="collapseThirtyfour">
@@ -1662,18 +2116,24 @@ fetch('https://jsonplaceholder.typicode.com/photos?_limit=20')
     <div class="accordion-body">
       <div id="editor34">
 function isPalindrome(str) {
-		  
   const cleanStr = str.toLowerCase().replace(/[^a-z0-9]/g, '');
   return cleanStr === cleanStr.split('').reverse().join('');
 }
 // Example usage:
-console.log(isPalindrome("A man, a plan, a canal: Panama")); // true
-console.log(isPalindrome("hello")); // false
-console.log(isPalindrome("madam")); // true
+console.log(isPalindrome("A man, a plan, a canal: Panama")); 
+// Output: true
+console.log(isPalindrome("hello")); 
+// Output: false
+console.log(isPalindrome("madam")); 
+// Output: true
+
+
+
       </div>  
     </div>
   </div>
 </div>
+
 <div class="accordion-item">
   <h2 class="accordion-header">
     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirtyfive" aria-expanded="false" aria-controls="collapseThirtyfive">
@@ -1712,27 +2172,46 @@ console.log(isPalindrome("madam")); // true
     return str === rev;
     //if (rev == str) {return true} return false
   }
-  console.log(isPaliLoop("racecar")); // true
-  console.log(isPaliLoop("nitin")); // true
-  console.log(isPaliLoop("madam")); // true
-  console.log(isPaliLoop("Rama")); // false
-  console.log(isPaliLoop("hello")); // false
+  console.log(isPaliLoop("racecar")); 
+  // Output: true
+  console.log(isPaliLoop("nitin")); 
+  // Output: true
+  console.log(isPaliLoop("madam")); 
+  // Output: true
+  console.log(isPaliLoop("Rama")); 
+  // Output: false
+  console.log(isPaliLoop("hello")); 
+  // Output: false
 
-  console.log(isPaliLast("racecar")); // true
-  console.log(isPaliLast("nitin")); // true
-  console.log(isPaliLast("madam")); // true
-  console.log(isPaliLast("Rama")); // false
-  console.log(isPaliLast("hello")); // false
+  console.log(isPaliLast("racecar")); 
+  // Output: true
+  console.log(isPaliLast("nitin")); 
+  // Output: true
+  console.log(isPaliLast("madam")); 
+  // Output: true
+  console.log(isPaliLast("Rama")); 
+  // Output: false
+  console.log(isPaliLast("hello")); 
+  // Output: false
 
-  console.log(isPaliMethod("racecar")); // true
-  console.log(isPaliMethod("nitin")); // true
-  console.log(isPaliMethod("madam")); // true
-  console.log(isPaliMethod("Rama")); // false
-  console.log(isPaliMethod("hello")); // false
+  console.log(isPaliMethod("racecar")); 
+  // Output: true
+  console.log(isPaliMethod("nitin")); 
+  // Output: true
+  console.log(isPaliMethod("madam")); 
+  // Output: true
+  console.log(isPaliMethod("Rama")); 
+  // Output: false
+  console.log(isPaliMethod("hello")); 
+  // Output: false
+
+
+
     </div>  
     </div>
   </div>
 </div>
+
 <div class="accordion-item">
   <h2 class="accordion-header">
     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirtysix" aria-expanded="false" aria-controls="collapseThirtysix">
@@ -1754,10 +2233,14 @@ console.log(isPalindrome("madam")); // true
    return str.replace(/\b\w/g, l => l.toUpperCase());
  }
  console.log(toTitleCase("my name is aniruddh"));
+
+
+
     </div>  
     </div>
   </div>
 </div>
+
 <div class="accordion-item">
   <h2 class="accordion-header">
     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirtyseven" aria-expanded="false" aria-controls="collapseThirtyseven">
@@ -1789,12 +2272,37 @@ debouncedSearch('a');
 debouncedSearch('ab');
 debouncedSearch('abc');
 // Only the last call with 'abc' will be executed after 300ms
+
+
+
       </div>  
     </div>
   </div>
 </div>
+
+
+<!-- start Template -->
+<!-- <div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirtyeight" aria-expanded="false" aria-controls="collapseThirtyeight">
+      QUE 38:  
+    </button>
+  </h2>
+  <div id="collapseThirtyeight" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor38">
+        
+
+      </div>  
+    </div>
+  </div>
+</div> -->
+<!-- End Template -->
+
 <!-- end section 10 -->
-</div>
+
+</div> 
+
 
 <div class="container-fluid " style="background-color: #edf2f9;">
   <footer class="py-3">
@@ -1804,8 +2312,79 @@ debouncedSearch('abc');
     <p class="text-center text-muted">© 2024 Aniruddha Kadia</p>
   </footer>
 </div>
-<!-- <script src="./ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/ace.min.js"></script>
+<script src="./ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="./custom-acecode.js" type="text/javascript" charset="utf-8"></script>
+<script>
+  document.getElementById('toggleAllAccordion').addEventListener('change', function() {
+    const collapses = document.querySelectorAll('.accordion-collapse');
+    const label = document.querySelector('label[for="toggleAllAccordion"]');
+    
+    if (this.checked) {
+      label.textContent = "All Accordion Open";
+    } else {
+      label.textContent = "All Accordion Close";
+    }
+
+    collapses.forEach(collapse => {
+      if (this.checked) {
+        new bootstrap.Collapse(collapse, { show: true });
+      } else {
+        new bootstrap.Collapse(collapse, { hide: true });
+      }
+    });
+  });
+</script>
+
+
+<!-- start Template -->
+<!-- <div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirtyeight" aria-expanded="false" aria-controls="collapseThirtyeight">
+      QUE 38:  
+    </button>
+  </h2>
+  <div id="collapseThirtyeight" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <div id="editor38">
+          Javascript Code Here
+      </div>  
+    </div>
+  </div>
+</div> -->
+<!-- End Template -->
+ 
+<!-- Scroll To Top Button -->
+<button type="button" class="btn btn-primary btn-floating btn-lg" id="btn-back-to-top">
+  &uarr;
+</button>
+
+<script>
+  //Get the button
+  let mybutton = document.getElementById("btn-back-to-top");
+
+  // When the user scrolls down 20px from the top of the document, show the button
+  window.onscroll = function () {
+    scrollFunction();
+  };
+
+  function scrollFunction() {
+    if (
+      document.body.scrollTop > 20 ||
+      document.documentElement.scrollTop > 20
+    ) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  // When the user clicks on the button, scroll to the top of the document
+  mybutton.addEventListener("click", backToTop);
+
+  function backToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+</script>
 </body>
 </html>
